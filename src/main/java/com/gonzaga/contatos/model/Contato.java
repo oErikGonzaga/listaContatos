@@ -6,7 +6,11 @@ import lombok.Data;
 public class Contato {
 
     private String id;
+    private boolean ativo;
     private String nome;
-    private String tipo;
-    private String valor;
+    private String email;
+
+    public Contato(){
+        ativo = true;
+    }
 }
