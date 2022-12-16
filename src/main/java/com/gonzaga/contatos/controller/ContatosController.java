@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Slf4j
@@ -88,4 +89,33 @@ public class ContatosController {
 //
 //        this.contatos = contatos;
      }
+
+     @PatchMapping(value = "inativar/{id}")
+     @ResponseStatus(HttpStatus.ACCEPTED)
+    public void inativar(@PathVariable String id){
+
+        var contato = contatos
+                 .stream()
+                 .filter(c -> c.getId().equals(id) && c.isAtivo())
+                 .findFirst()
+                 .orElseThrow(() -> new RuntimeException("Contato nao encontrado ou inativo"));
+
+         contato.setAtivo(false);
+
+    }
+
+//        var contato = contatos
+//                 .stream()
+//                 .filter(c -> c.getId().equals(id))
+//                 .findFirst()
+//                 .orElseThrow(() -> new RuntimeException("Contato nao encontrado"));
+//
+//        if (contato.getAtivo() == false) {
+//            throw new RuntimeException("Contato já está Inativo");
+//        }
+//
+//        if (contato.getAtivo()) {
+//            contato.setAtivo(false);
+//        }
+
 }
