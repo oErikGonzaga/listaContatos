@@ -19,10 +19,10 @@ public class ContatosController {
      private final List<Contato> contatos = new ArrayList<>();
      private static final String TOKEN_ACCESS = "BC6X8639be18b115a9";
 
-    @GetMapping(value = "healthcheck")
-    public String check() {
-        return "App is Working";
-    }
+     @GetMapping(value = "healthcheck")
+     public String check() {
+         return "App is Working";
+     }
 
      @PostMapping(value = "contatos")
      public ResponseEntity<?> criar(@RequestBody Contato contato,
@@ -43,8 +43,8 @@ public class ContatosController {
          return contatos;
      }
 
-    // Filtrando um contato pelo Id
-    @GetMapping(value = "contatos/{id}")
+     // Filtrando um contato pelo Id
+     @GetMapping(value = "contatos/{id}")
      public  Contato buscarPorId(@PathVariable String id,
                                  @RequestParam(value = "ativo", required = false, defaultValue = "true") boolean ativo){
          return contatos
@@ -73,7 +73,7 @@ public class ContatosController {
              contato.setEmail(valor);
          }
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(contato);
+         return ResponseEntity.status(HttpStatus.ACCEPTED).body(contato);
      }
 
      @DeleteMapping(value = "deletar/{id}")
@@ -101,8 +101,8 @@ public class ContatosController {
 //
 //        this.contatos = contatos
 
-     @PatchMapping(value = "inativar/{id}")
-     @ResponseStatus(HttpStatus.ACCEPTED)
+    @PatchMapping(value = "inativar/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public void inativar(@PathVariable String id){
 
         var contato = contatos
@@ -111,9 +111,10 @@ public class ContatosController {
                  .findFirst()
                  .orElseThrow(() -> new RuntimeException("Contato nao encontrado ou inativo"));
 
-         contato.setAtivo(false);
+        contato.setAtivo(false);
 
     }
+}
 
 //        var contato = contatos
 //                 .stream()
@@ -129,4 +130,3 @@ public class ContatosController {
 //            contato.setAtivo(false);
 //        }
 
-}
