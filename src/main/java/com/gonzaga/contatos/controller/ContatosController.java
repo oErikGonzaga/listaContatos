@@ -57,8 +57,12 @@ public class ContatosController {
      @PutMapping(value = "alterar/{id}")
      public ResponseEntity<Contato> alterar(@PathVariable String id,
                            @RequestParam(value = "nome", required = false) String nome,
-                           @RequestParam(value = "email", required = false) String valor){
+                           @RequestParam(value = "email", required = false) String valor,
+                           @RequestHeader(value = "Authorization") String auth) {
 
+         if (!auth.equals(TOKEN_ACCESS)){
+             throw new RuntimeException("Token de Acesso Inválido");
+         }
          var contato = contatos
                  .stream()
                  .filter(c -> c.getId().equals(id))
@@ -103,8 +107,12 @@ public class ContatosController {
 
     @PatchMapping(value = "inativar/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void inativar(@PathVariable String id){
+    public void inativar(@PathVariable String id,
+                         @RequestHeader(value = "Authorization") String auth) {
 
+        if (!auth.equals(TOKEN_ACCESS)){
+            throw new RuntimeException("Token de Acesso Inválido");
+        }
         var contato = contatos
                  .stream()
                  .filter(c -> c.getId().equals(id) && c.isAtivo())
