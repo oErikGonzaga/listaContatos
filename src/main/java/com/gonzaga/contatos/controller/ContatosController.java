@@ -72,7 +72,7 @@ public class ContatosController {
              contato.setEmail(valor);
          }
 
-        return contato;
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(contato);
      }
 
      @DeleteMapping(value = "deletar/{id}")
