@@ -41,7 +41,7 @@ public class ContatosController {
                                          required = false, defaultValue = "true") boolean ativo){
          return contatos
                  .stream()
-                 .filter(c -> c.getId().equals(id))
+                 .filter(c -> c.getId().equals(id) && c.isAtivo() == ativo)
                  .findFirst()
                  .orElseThrow(() -> new RuntimeException("Contato nao encontrado"));
      }
