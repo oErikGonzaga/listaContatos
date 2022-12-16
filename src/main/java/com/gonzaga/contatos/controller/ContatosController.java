@@ -54,8 +54,7 @@ public class ContatosController {
      }
 
      @PutMapping(value = "alterar/{id}")
-     @ResponseStatus(HttpStatus.ACCEPTED)
-     public Contato alterar(@PathVariable String id,
+     public ResponseEntity<Contato> alterar(@PathVariable String id,
                            @RequestParam(value = "nome", required = false) String nome,
                            @RequestParam(value = "email", required = false) String valor){
 
