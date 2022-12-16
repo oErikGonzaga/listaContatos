@@ -25,11 +25,15 @@ public class ContatosController {
     }
 
      @PostMapping(value = "contatos")
-     @ResponseStatus(HttpStatus.CREATED)
-     public Contato criar(@RequestBody Contato contato) {
+     public ResponseEntity<?> criar(@RequestBody Contato contato,
+                                    @RequestHeader(value = "Authorization") String auth) {
+
+        if (!auth.equals(TOKEN_ACCESS)){
+            return ResponseEntity.badRequest().body("Token de Acesso Inválido");
+        }
          contato.setId(UUID.randomUUID().toString());
          contatos.add(contato);
-         return contato;
+         return ResponseEntity.status(HttpStatus.CREATED).body(contato);
      }
 
      @GetMapping(value = "listar-contatos")
