@@ -4,6 +4,7 @@ package com.gonzaga.contatos.controller;
 import com.gonzaga.contatos.model.Contato;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -77,7 +78,12 @@ public class ContatosController {
 
      @DeleteMapping(value = "deletar/{id}")
      @ResponseStatus(HttpStatus.ACCEPTED)
-     public void deletar(@PathVariable(value = "id") String idContato){
+     public ResponseEntity<Void> deletar(@PathVariable(value = "id") String idContato,
+                                         @RequestHeader(value = "Authorization") String auth) {
+
+        if (!auth.equals(TOKEN_ACCESS)){
+            throw new RuntimeException("Token de Acesso Inválido");
+        }
 
          var contato = contatos
                  .stream()
@@ -86,14 +92,14 @@ public class ContatosController {
                  .orElseThrow(() -> new RuntimeException("Contato nao encontrado"));
 
          contatos.remove(contato);
-
+         return ResponseEntity.noContent().build();
+     }
 //        List<Contato> contatos = this.contatos
 //                .stream()
 //                .filter(c -> c.getId().equals(idContato))
 //                .collect(Collectors.toList());
 //
-//        this.contatos = contatos;
-     }
+//        this.contatos = contatos
 
      @PatchMapping(value = "inativar/{id}")
      @ResponseStatus(HttpStatus.ACCEPTED)
