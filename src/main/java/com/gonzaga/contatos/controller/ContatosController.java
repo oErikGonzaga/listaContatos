@@ -15,7 +15,9 @@ import java.util.UUID;
 @RestController
 public class ContatosController {
 
-     private List<Contato> contatos = new ArrayList<>();
+     private final List<Contato> contatos = new ArrayList<>();
+
+     private static final String TOKEN_ACCESS = "BC6X8639be18b115a9";
 
     @GetMapping(value = "healthcheck")
     public String check() {
