@@ -17,7 +17,6 @@ import java.util.UUID;
 public class ContatosController {
 
      private final List<Contato> contatos = new ArrayList<>();
-
      private static final String TOKEN_ACCESS = "BC6X8639be18b115a9";
 
     @GetMapping(value = "healthcheck")
@@ -32,21 +31,22 @@ public class ContatosController {
         if (!auth.equals(TOKEN_ACCESS)){
             return ResponseEntity.badRequest().body("Token de Acesso Inválido");
         }
+
          contato.setId(UUID.randomUUID().toString());
          contatos.add(contato);
          return ResponseEntity.status(HttpStatus.CREATED).body(contato);
      }
+
 
      @GetMapping(value = "listar-contatos")
      public List<Contato> listar(){
          return contatos;
      }
 
-     @GetMapping(value = "contatos/{id}")
-     // Filtrando um contato pelo Id
+    // Filtrando um contato pelo Id
+    @GetMapping(value = "contatos/{id}")
      public  Contato buscarPorId(@PathVariable String id,
-                                 @RequestParam(value = "ativo",
-                                         required = false, defaultValue = "true") boolean ativo){
+                                 @RequestParam(value = "ativo", required = false, defaultValue = "true") boolean ativo){
          return contatos
                  .stream()
                  .filter(c -> c.getId().equals(id) && c.isAtivo() == ativo)
