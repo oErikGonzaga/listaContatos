@@ -36,7 +36,9 @@ public class ContatosController {
 
      @GetMapping(value = "contatos/{id}")
      // Filtrando um contato pelo Id
-     public  Contato buscarPorId(@PathVariable String id){
+     public  Contato buscarPorId(@PathVariable String id,
+                                 @RequestParam(value = "ativo",
+                                         required = false, defaultValue = "true") boolean ativo){
          return contatos
                  .stream()
                  .filter(c -> c.getId().equals(id))
