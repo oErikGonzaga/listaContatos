@@ -47,7 +47,45 @@ public class ContatosController {
      }
 
      @PutMapping(value = "alterar/{id}")
-    public Contato alterar(@PathVariable String id){
-        return null;
+     @ResponseStatus(HttpStatus.ACCEPTED)
+     public Contato alterar(@PathVariable String id,
+                           @RequestParam(value = "nome", required = false) String nome,
+                           @RequestParam(value = "email", required = false) String valor){
+
+         var contato = contatos
+                 .stream()
+                 .filter(c -> c.getId().equals(id))
+                 .findFirst()
+                 .orElseThrow(() -> new RuntimeException("Contato nao encontrado"));
+
+         if (Objects.nonNull(nome)){
+             contato.setNome(nome);
+         }
+
+         if (valor != null){
+             contato.setEmail(valor);
+         }
+
+        return contato;
+     }
+
+     @DeleteMapping(value = "deletar/{id}")
+     @ResponseStatus(HttpStatus.ACCEPTED)
+     public void deletar(@PathVariable(value = "id") String idContato){
+
+         var contato = contatos
+                 .stream()
+                 .filter(c -> c.getId().equals(idContato))
+                 .findFirst()
+                 .orElseThrow(() -> new RuntimeException("Contato nao encontrado"));
+
+         contatos.remove(contato);
+
+//        List<Contato> contatos = this.contatos
+//                .stream()
+//                .filter(c -> c.getId().equals(idContato))
+//                .collect(Collectors.toList());
+//
+//        this.contatos = contatos;
      }
 }
