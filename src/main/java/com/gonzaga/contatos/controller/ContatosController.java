@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import static java.util.Objects.isNull;
+
 @Slf4j
 @RestController
 @RequestMapping("contatos") // Adiciona um path fixo antecedente aos demais paths.
@@ -29,9 +31,12 @@ public class ContatosController {
      public ResponseEntity<?> criar(@RequestBody Contato contato,
                                     @RequestHeader(value = "Authorization") String auth) {
 
-        if (!auth.equals(TOKEN_ACCESS)){
-            return ResponseEntity.badRequest().body("Token de Acesso Inválido");
-        }
+         /* Garantindo que não seja gerado um nullPointer
+         ao inves de if (!auth.equals(TOKEN_ACCESS)) */
+
+         if (!TOKEN_ACCESS.equals(auth)){
+             return ResponseEntity.badRequest().body("Token de Acesso Inválido");
+         }
 
          contato.setId(UUID.randomUUID().toString());
          contatos.add(contato);
@@ -48,11 +53,15 @@ public class ContatosController {
      @GetMapping(value = "{id}")
      public  ResponseEntity<?> buscarPorId(@PathVariable String id,
                                  @RequestParam(value = "ativo", required = false, defaultValue = "true") boolean ativo){
-         return contatos
+         var resp = contatos
                  .stream()
-                 .filter(c -> c.getId().equals(id) && c.isAtivo() == ativo)
+                 // Garantindo que não vou tomar um NullPointer (invertendo a lógica)
+                 .filter(c -> id.equals(c.getId()) && ativo == c.isAtivo())
                  .findFirst()
-                 .orElseThrow(() -> new RuntimeException("Contato nao encontrado"));
+                 .orElse(null);
+
+         // se a resposta for nula, retorne um 404 se não retorne a resposta.
+         return isNull(resp) ? ResponseEntity.status(404).body("Contato não encontrado") : ResponseEntity.ok(resp);
      }
 
      @PutMapping(value = "alterar/{id}")
