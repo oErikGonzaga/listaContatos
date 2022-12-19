@@ -14,6 +14,7 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
+@RequestMapping("contatos") // Adiciona um path fixo antecedente aos demais paths.
 public class ContatosController {
 
      private final List<Contato> contatos = new ArrayList<>();
@@ -24,7 +25,7 @@ public class ContatosController {
          return "App is Working";
      }
 
-     @PostMapping(value = "contatos")
+     @PostMapping
      public ResponseEntity<?> criar(@RequestBody Contato contato,
                                     @RequestHeader(value = "Authorization") String auth) {
 
@@ -38,14 +39,14 @@ public class ContatosController {
      }
 
 
-     @GetMapping(value = "listar-contatos")
+     @GetMapping(value = "listar")
      public List<Contato> listar(){
          return contatos;
      }
 
      // Filtrando um contato pelo Id
-     @GetMapping(value = "contatos/{id}")
-     public  Contato buscarPorId(@PathVariable String id,
+     @GetMapping(value = "{id}")
+     public  ResponseEntity<?> buscarPorId(@PathVariable String id,
                                  @RequestParam(value = "ativo", required = false, defaultValue = "true") boolean ativo){
          return contatos
                  .stream()
@@ -80,7 +81,7 @@ public class ContatosController {
          return ResponseEntity.status(HttpStatus.ACCEPTED).body(contato);
      }
 
-     @DeleteMapping(value = "deletar/{id}")
+     @DeleteMapping(value = "{id}")
      @ResponseStatus(HttpStatus.ACCEPTED)
      public ResponseEntity<Void> deletar(@PathVariable(value = "id") String idContato,
                                          @RequestHeader(value = "Authorization") String auth) {
