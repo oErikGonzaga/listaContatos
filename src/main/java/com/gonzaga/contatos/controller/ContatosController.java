@@ -1,7 +1,7 @@
 package com.gonzaga.contatos.controller;
 
-
 import com.gonzaga.contatos.model.Contato;
+import com.gonzaga.contatos.service.ContatosService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +14,21 @@ import java.util.UUID;
 
 import static java.util.Objects.isNull;
 
+// Entrada de informações, EndPoint (aonde recebemos as informações dos usuários)
 @Slf4j
 @RestController
 @RequestMapping("contatos") // Adiciona um path fixo antecedente aos demais paths.
 public class ContatosController {
 
-     private final List<Contato> contatos = new ArrayList<>();
-     private static final String TOKEN_ACCESS = "BC6X8639be18b115a9";
+    ContatosService contatosService = new ContatosService();
+    private static final String TOKEN_ACCESS = "BC6X8639be18b115a9";
+    /* Chave de Acesso, comparada via Header
+    (em exemplo: uma chave fica com o cliente e outra no sistema
+    para comparação e liberação de acesso) */
 
-     @GetMapping(value = "healthcheck")
-     public String check() {
+
+    @GetMapping(value = "healthcheck")
+    public String check() {
          return "App is Working";
      }
 
@@ -32,52 +37,50 @@ public class ContatosController {
                                     @RequestHeader(value = "Authorization") String auth) {
 
          /* Garantindo que não seja gerado um nullPointer
-         ao inves de if (!auth.equals(TOKEN_ACCESS)) */
+         ao inves de if (!auth.equals(TOKEN_ACCESS))
+         Certificamas qual variavel / Objeto contém um valor
+         e priorizamos-lá na ordem de acesso */
+
+         var contatoCriado = contatosService.cadastrar(contato);
 
          if (!TOKEN_ACCESS.equals(auth)){
              return ResponseEntity.badRequest().body("Token de Acesso Inválido");
          }
 
-         contato.setId(UUID.randomUUID().toString());
-         contatos.add(contato);
+         if (Objects.nonNull(contatoCriado)){
+             System.out.println("Criado");
+             return ResponseEntity.status(201).body(contatoCriado);
+         }
          return ResponseEntity.status(HttpStatus.CREATED).body(contato);
      }
 
-
-     @GetMapping(value = "listar")
+     @GetMapping
      public List<Contato> listar(){
-         return contatos;
+         return contatosService.listar();
      }
+
 
      // Filtrando um contato pelo Id
      @GetMapping(value = "{id}")
-     public  ResponseEntity<?> buscarPorId(@PathVariable String id,
-                                 @RequestParam(value = "ativo", required = false, defaultValue = "true") boolean ativo){
-         var resp = contatos
-                 .stream()
-                 // Garantindo que não vou tomar um NullPointer (invertendo a lógica)
-                 .filter(c -> id.equals(c.getId()) && ativo == c.isAtivo())
-                 .findFirst()
-                 .orElse(null);
+     public  ResponseEntity<?> buscarPorId(@PathVariable String id){
 
-         // se a resposta for nula, retorne um 404 se não retorne a resposta.
-         return isNull(resp) ? ResponseEntity.status(404).body("Contato não encontrado") : ResponseEntity.ok(resp);
+         var resp = contatosService.buscarPorId(id);
+
+         // Op. Ternário: se a resposta for nula, retorne um 404 se não retorne a resposta.
+         return isNull(resp) ? ResponseEntity.status(404).build() : ResponseEntity.ok(resp);
      }
 
      @PutMapping(value = "alterar/{id}")
      public ResponseEntity<Contato> alterar(@PathVariable String id,
-                           @RequestParam(value = "nome", required = false) String nome,
-                           @RequestParam(value = "email", required = false) String valor,
-                           @RequestHeader(value = "Authorization") String auth) {
+                                            @RequestHeader(value = "Authorization") String auth,
+                                            @RequestParam(value = "nome", required = false) String nome,
+                                            @RequestParam(value = "email", required = false) String valor) {
 
-         if (!auth.equals(TOKEN_ACCESS)){
+         var contato = contatosService.alterar(id);
+
+         if (!TOKEN_ACCESS.equals(auth)){
              throw new RuntimeException("Token de Acesso Inválido");
          }
-         var contato = contatos
-                 .stream()
-                 .filter(c -> c.getId().equals(id))
-                 .findFirst()
-                 .orElseThrow(() -> new RuntimeException("Contato nao encontrado"));
 
          if (Objects.nonNull(nome)){
              contato.setNome(nome);
@@ -86,65 +89,33 @@ public class ContatosController {
          if (valor != null){
              contato.setEmail(valor);
          }
-
          return ResponseEntity.status(HttpStatus.ACCEPTED).body(contato);
      }
 
+
      @DeleteMapping(value = "{id}")
      @ResponseStatus(HttpStatus.ACCEPTED)
-     public ResponseEntity<Void> deletar(@PathVariable(value = "id") String idContato,
+     public ResponseEntity<Void> deletar(@PathVariable(value = "id") String id,
                                          @RequestHeader(value = "Authorization") String auth) {
 
-        if (!auth.equals(TOKEN_ACCESS)){
+         var contato = contatosService.deletar(id);
+
+         if (!TOKEN_ACCESS.equals(auth)){
             throw new RuntimeException("Token de Acesso Inválido");
-        }
-
-         var contato = contatos
-                 .stream()
-                 .filter(c -> c.getId().equals(idContato))
-                 .findFirst()
-                 .orElseThrow(() -> new RuntimeException("Contato nao encontrado"));
-
-         contatos.remove(contato);
+         }
          return ResponseEntity.noContent().build();
      }
-//        List<Contato> contatos = this.contatos
-//                .stream()
-//                .filter(c -> c.getId().equals(idContato))
-//                .collect(Collectors.toList());
-//
-//        this.contatos = contatos
 
     @PatchMapping(value = "inativar/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void inativar(@PathVariable String id,
+    public ResponseEntity<?> inativar(@PathVariable String id,
                          @RequestHeader(value = "Authorization") String auth) {
 
-        if (!auth.equals(TOKEN_ACCESS)){
+        boolean contatoInativado = contatosService.inativar(id);
+
+        if (!TOKEN_ACCESS.equals(auth)){
             throw new RuntimeException("Token de Acesso Inválido");
         }
-        var contato = contatos
-                 .stream()
-                 .filter(c -> c.getId().equals(id) && c.isAtivo())
-                 .findFirst()
-                 .orElseThrow(() -> new RuntimeException("Contato nao encontrado ou inativo"));
-
-        contato.setAtivo(false);
-
+        return contatoInativado ? ResponseEntity.ok(201) : ResponseEntity.status(404).build();
     }
 }
-
-//        var contato = contatos
-//                 .stream()
-//                 .filter(c -> c.getId().equals(id))
-//                 .findFirst()
-//                 .orElseThrow(() -> new RuntimeException("Contato nao encontrado"));
-//
-//        if (contato.getAtivo() == false) {
-//            throw new RuntimeException("Contato já está Inativo");
-//        }
-//
-//        if (contato.getAtivo()) {
-//            contato.setAtivo(false);
-//        }
-
