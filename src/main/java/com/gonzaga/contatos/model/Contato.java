@@ -9,7 +9,6 @@ public class Contato {
     private boolean ativo;
     private String nome;
     private String email;
-
     public Contato(){
         ativo = true;
     }
