@@ -10,10 +10,8 @@ import java.util.List;
 import java.util.UUID;
 
 
-// Entrada de informações, EndPoint (aonde recebemos as informações dos usuários)
 @RestController
 public class ExemploController {
-
     // A Lista será final pq ninguém deve altera-la
 //    private final List<Contato> contatos = new ArrayList<>();
 //
