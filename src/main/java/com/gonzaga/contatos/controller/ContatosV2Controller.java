@@ -11,9 +11,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+
 @RestController
 @RequestMapping(value = "contatos/v2")
 public class ContatosV2Controller {
+
+    private final List<ContatosV2> listaContatos = new ArrayList<>();
 
     ContatosServiceV2 contatosServiceV2 = new ContatosServiceV2();
     @GetMapping(value= "healthcheckv2")
@@ -31,29 +36,26 @@ public class ContatosV2Controller {
     }
     @GetMapping("listar")
     public List<ContatosV2> listar(){
-        return listaContatos;
+        return contatosServiceV2.listar();
     }
     @GetMapping("{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable String id){
 
-        for (ContatosV2 c : listaContatos) {
-            if (id.equals(c.getId()) && c.isAtivo()){
-                return ResponseEntity.ok(c);
-            }
-        }
-        return ResponseEntity.status(404).body("Contato não Encontrado");
+        var contatoEncontrado = contatosServiceV2.buscarPorId(id);
+
+        return isNull(contatoEncontrado) ?
+                ResponseEntity.status(404).body("Contato não Encontrado"):
+                ResponseEntity.ok(contatoEncontrado);
     }
 
     @PatchMapping("{id}")
     public ResponseEntity<?> inativarPorId(@PathVariable String id){
 
-        for (var c : listaContatos) {
-            if ((id.equals(c.getId()) && (c.isAtivo()))){
-                c.setAtivo(false);
-            }
-            return ResponseEntity.status(201).body("Contato inativado com Sucesso");
-        }
-        return ResponseEntity.status(404).body("Contato não encontrado");
+        var contatoInativado = contatosServiceV2.inativar(id);
+
+        return nonNull(contatoInativado) ?
+                ResponseEntity.ok(contatoInativado) :
+                ResponseEntity.status(201).body("Contato inativado com Sucesso");
     }
 
     @PutMapping("{id}")
@@ -63,7 +65,7 @@ public class ContatosV2Controller {
 
         for (var c : listaContatos) {
             if ((id.equals(c.getId()) && (c.isAtivo()) &&
-                !(c.equals(nome)) && (Objects.nonNull(nome)))) {
+                !(c.equals(nome)) && (nonNull(nome)))) {
                 c.setNome(nome);
             }
             if ((id.equals(c.getId()) && (c.isAtivo()) &&

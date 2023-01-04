@@ -20,20 +20,34 @@ public class ContatosServiceV2 {
         return contatosV2;
 
     }
-    public void listar(){
-
+    public List<ContatosV2> listar(){
+        return listaContatos;
     }
-    public void buscarPorId(){
+    public ContatosV2 buscarPorId(String id){
 
+        for (ContatosV2 c : listaContatos) {
+            if (id.equals(c.getId()) && c.isAtivo()){
+                return c;
+            }
+        }
+        System.out.println("Não encontrado");
+        return null;
     }
    public void alterar(){
+
 
     }
     public void deletar(){
 
     }
 
-    public void inativar(){
+    public ContatosV2 inativar(String id){
 
+        for (var c : listaContatos) {
+            if ((id.equals(c.getId()) && (c.isAtivo()))) {
+                c.setAtivo(false);
+            }
+        }
+        return null;
     }
 }
