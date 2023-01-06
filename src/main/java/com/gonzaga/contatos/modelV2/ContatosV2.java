@@ -1,4 +1,4 @@
-package com.gonzaga.contatos.model;
+package com.gonzaga.contatos.modelV2;
 
 import lombok.Data;
 @Data

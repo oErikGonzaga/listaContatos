@@ -1,6 +1,6 @@
-package com.gonzaga.contatos.service;
+package com.gonzaga.contatos.serviceV2;
 
-import com.gonzaga.contatos.model.ContatosV2;
+import com.gonzaga.contatos.modelV2.ContatosV2;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -47,6 +47,17 @@ public class ContatosServiceV2 {
         return null;
     }
 
+    public ContatosV2 deletar(String id){
+
+        for (ContatosV2 c : listaContatos) {
+            if (c.getId().equals(id) && c.isAtivo()) {
+                listaContatos.remove(c);
+                System.out.println("Apagou");
+            }
+        }
+        return null;
+    }
+
     public ContatosV2 alterar(String id,String nome, String documento){
 
         for (var c : listaContatos) {
@@ -63,14 +74,4 @@ public class ContatosServiceV2 {
         return null;
     }
 
-    public ContatosV2 deletar(String id){
-
-        for (ContatosV2 c : listaContatos) {
-            if (c.getId().equals(id) && c.isAtivo()) {
-                listaContatos.remove(c);
-                System.out.println("Apagou");
-            }
-        }
-        return null;
-    }
 }

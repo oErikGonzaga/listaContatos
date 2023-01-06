@@ -1,15 +1,13 @@
-package com.gonzaga.contatos.controller;
+package com.gonzaga.contatos.controllerV2;
 
-import com.gonzaga.contatos.model.ContatosV2;
+import com.gonzaga.contatos.modelV2.ContatosV2;
 
-import com.gonzaga.contatos.service.ContatosServiceV2;
+import com.gonzaga.contatos.serviceV2.ContatosServiceV2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
