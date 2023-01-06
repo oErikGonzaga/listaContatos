@@ -20,12 +20,14 @@ public class ContatosV2Controller {
 
     private final List<ContatosV2> listaContatos = new ArrayList<>();
 
+
     ContatosServiceV2 contatosServiceV2 = new ContatosServiceV2();
     @GetMapping(value= "healthcheckv2")
     public ResponseEntity<String> checkStatus(){
         String result = "App Contatos, Ok";
         return ResponseEntity.ok(result);
     }
+
 
     @PostMapping("cadastrar")
     public ResponseEntity<?> cadastrar(@RequestBody ContatosV2 contatosV2){
@@ -34,6 +36,8 @@ public class ContatosV2Controller {
 
         return ResponseEntity.status(200).body(contatoCriado);
     }
+
+
     @GetMapping("listar")
     public List<ContatosV2> listar(){
         return contatosServiceV2.listar();
@@ -48,6 +52,7 @@ public class ContatosV2Controller {
                 ResponseEntity.ok(contatoEncontrado);
     }
 
+
     @PatchMapping("{id}")
     public ResponseEntity<?> inativarPorId(@PathVariable String id){
 
@@ -58,35 +63,27 @@ public class ContatosV2Controller {
                 ResponseEntity.status(201).body("Contato inativado com Sucesso");
     }
 
+
     @PutMapping("{id}")
     public ResponseEntity<?> alterarContato(@PathVariable String id,
                                             @RequestParam(value = "nome", required = false) String nome,
                                             @RequestParam(value = "documento", required = false) String documento){
 
-        for (var c : listaContatos) {
-            if ((id.equals(c.getId()) && (c.isAtivo()) &&
-                !(c.equals(nome)) && (nonNull(nome)))) {
-                c.setNome(nome);
-            }
-            if ((id.equals(c.getId()) && (c.isAtivo()) &&
-                !(c.equals(documento)) && c.getDocumento() != null)) {
-                c.setDocumento(Long.valueOf(documento));
-            }
-            return ResponseEntity.status(201).body(c);
-        }
-        return ResponseEntity.status(404).body("Contato não encontrado");
+        var contatoAlterado = contatosServiceV2.alterar(id, nome, documento);
+
+        return isNull(contatoAlterado) ?
+                ResponseEntity.status(404).body("Contato não encontrado") :
+                ResponseEntity.status(201).body(contatoAlterado);
     }
+
 
     @DeleteMapping("{id}")
     public ResponseEntity<?> deletarPorId(@PathVariable String id){
 
-        for (ContatosV2 c : listaContatos) {
-            if (c.getId().equals(id) && c.isAtivo()){
-                listaContatos.remove(c);
-                System.out.println("Apagou");
-            }
-            return ResponseEntity.status(201).body("Contato apagado com Sucesso");
-        }
-        return ResponseEntity.status(404).body("Contato não Encontrado");
+        var contatoDeletado = contatosServiceV2.deletar(id);
+
+        return isNull(contatoDeletado) ?
+                ResponseEntity.status(404).body("Contato não Encontrado") :
+                ResponseEntity.status(201).body("Contato Deletado");
     }
 }

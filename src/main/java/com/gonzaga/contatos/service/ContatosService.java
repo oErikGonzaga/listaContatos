@@ -12,14 +12,14 @@ public class ContatosService {
 
     private final List<Contato> contatos = new ArrayList<>();
 
+    public List<Contato> listar(){
+        return contatos;
+    }
     public Contato cadastrar(Contato contato){
 
         contato.setId(UUID.randomUUID().toString());
         contatos.add(contato);
         return contato;
-    }
-    public List<Contato> listar(){
-        return contatos;
     }
     public Contato buscarPorId(String id){
 
@@ -30,16 +30,6 @@ public class ContatosService {
                 .orElse(null);
 
         return resp;
-    }
-    public Contato alterar(String id){
-
-        var contato = contatos
-                .stream()
-                .filter(c -> c.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Contato nao encontrado"));
-
-        return contato;
     }
     public boolean inativar(String id){
 
@@ -54,6 +44,16 @@ public class ContatosService {
         System.out.println("Alterado");
 
         return true;
+    }
+    public Contato alterar(String id){
+
+        var contato = contatos
+                .stream()
+                .filter(c -> c.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Contato nao encontrado"));
+
+        return contato;
     }
     public Contato deletar(String id){
 
