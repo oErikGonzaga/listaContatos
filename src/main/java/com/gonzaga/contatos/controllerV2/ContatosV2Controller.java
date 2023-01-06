@@ -40,6 +40,7 @@ public class ContatosV2Controller {
     public List<ContatosV2> listar(){
         return contatosServiceV2.listar();
     }
+
     @GetMapping("{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable String id){
 
@@ -56,9 +57,9 @@ public class ContatosV2Controller {
 
         var contatoInativado = contatosServiceV2.inativar(id);
 
-        return nonNull(contatoInativado) ?
-                ResponseEntity.ok(contatoInativado) :
-                ResponseEntity.status(201).body("Contato inativado com Sucesso");
+        return isNull(contatoInativado) ?
+                ResponseEntity.status(404).build() :
+                ResponseEntity.ok("Contato inativado com Sucesso");
     }
 
 
@@ -70,7 +71,7 @@ public class ContatosV2Controller {
         var contatoAlterado = contatosServiceV2.alterar(id, nome, documento);
 
         return isNull(contatoAlterado) ?
-                ResponseEntity.status(404).body("Contato não encontrado") :
+                ResponseEntity.status(201).body("Contato não encontrado") :
                 ResponseEntity.status(201).body(contatoAlterado);
     }
 

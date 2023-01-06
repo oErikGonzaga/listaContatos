@@ -33,7 +33,6 @@ public class ContatosServiceV2 {
                 return c;
             }
         }
-        System.out.println("Não encontrado");
         return null;
     }
 
@@ -43,6 +42,7 @@ public class ContatosServiceV2 {
             if ((id.equals(c.getId()) && (c.isAtivo()))) {
                 c.setAtivo(false);
             }
+            return c;
         }
         return null;
     }
@@ -54,13 +54,14 @@ public class ContatosServiceV2 {
                 listaContatos.remove(c);
                 System.out.println("Apagou");
             }
+            return c;
         }
         return null;
     }
 
     public ContatosV2 alterar(String id,String nome, String documento){
 
-        for (var c : listaContatos) {
+        for (ContatosV2 c : listaContatos) {
             if ((id.equals(c.getId()) && (c.isAtivo()) &&
                     !(c.equals(nome)) && (nonNull(nome)))) {
                 c.setNome(nome);
@@ -70,6 +71,7 @@ public class ContatosServiceV2 {
                     !(c.equals(documento)) && c.getDocumento() != null)) {
                 c.setDocumento(Long.valueOf(documento));
             }
+            return c;
         }
         return null;
     }
