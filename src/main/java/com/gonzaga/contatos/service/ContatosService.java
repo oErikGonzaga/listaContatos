@@ -57,14 +57,9 @@ public class ContatosService {
     }
     public Contato deletar(String id){
 
-        var contato = contatos
-                .stream()
-                .filter(c -> c.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Contato nao encontrado"));
-
-        contatos.remove(contato);
-
-        return contato;
+        contatos.removeIf(c -> c.getId().equals(id) && c.isAtivo());
+        return null;
     }
+
+
 }
