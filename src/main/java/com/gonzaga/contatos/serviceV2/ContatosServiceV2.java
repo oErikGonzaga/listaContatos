@@ -37,6 +37,10 @@ public class ContatosServiceV2 {
 
     public ContatosV2 buscarPorId(String id){
 
+        /*  Buscando um contato pelo ID gerado no cadastro;
+            Caso o ID seja igual ao do banco e ele esteja ATIVO será retornado o contato.
+        */
+
         for (ContatosV2 c : listaContatos) {
             if (id.equals(c.getId()) && c.isAtivo()){
                 return c;
