@@ -23,24 +23,28 @@ public class ContatosV2Controller {
 
     @GetMapping(value= "healthcheckv2")
     public ResponseEntity<String> checkStatus(){
+
+        // Checkando conexão com o EndPoint
+
         String result = "App Contatos, Ok";
         return ResponseEntity.ok(result);
     }
-
 
     @PostMapping("cadastrar")
     public ResponseEntity<?> cadastrar(@RequestBody ContatosV2 contatosV2){
 
         var contatoCriado = contatosServiceV2.cadastrar(contatosV2);
 
-            return Objects.isNull(contatoCriado) ?
-                    ResponseEntity.status(404).body("Contato já existe") :
-                    ResponseEntity.status(200).body(contatoCriado);
-    }
+        //  ResponseEntity passando o número do StatusCode com Body como resposta
 
+        return Objects.isNull(contatoCriado) ?
+                ResponseEntity.status(404).body("Contato já existe") :
+                ResponseEntity.status(200).body(contatoCriado);
+    }
 
     @GetMapping("listar")
     public List<ContatosV2> listar(){
+
         return contatosServiceV2.listar();
     }
 
@@ -49,40 +53,25 @@ public class ContatosV2Controller {
 
         var contatoEncontrado = contatosServiceV2.buscarPorId(id);
 
-        if (Objects.nonNull(contatoEncontrado)){
-            return ResponseEntity.accepted().body(contatoEncontrado);
-        }
+        //  ResponseEntity passando o nome do StatusCode com Body e Build como resposta
 
-        return ResponseEntity.status(404).body("Contato não Encontrado");
+        return (Objects.nonNull(contatoEncontrado)) ?
+                ResponseEntity.accepted().body(contatoEncontrado) :
+                ResponseEntity.notFound().build();
     }
 
-
     @PatchMapping("{id}")
-    public ResponseEntity<?> inativarPorId(@PathVariable String id){
+    public ResponseEntity<?> inativar(@PathVariable String id){
 
         var contatoInativado = contatosServiceV2.inativar(id);
 
         return isNull(contatoInativado) ?
-                ResponseEntity.status(404).build() :
-                ResponseEntity.ok("Contato inativado com Sucesso");
+                ResponseEntity.notFound().build() :
+                ResponseEntity.ok().build();
     }
-
-
-    @PutMapping("{id}")
-    public ResponseEntity<?> alterarContato(@PathVariable String id,
-                                            @RequestParam(value = "nome", required = false) String nome,
-                                            @RequestParam(value = "documento", required = false) String documento){
-
-        var contatoAlterado = contatosServiceV2.alterar(id, nome, documento);
-
-        return isNull(contatoAlterado) ?
-                ResponseEntity.status(404).body("Contato não encontrado") :
-                ResponseEntity.status(201).body(contatoAlterado);
-    }
-
 
     @DeleteMapping("{id}")
-    public ResponseEntity<?> deletarPorId(@PathVariable String id){
+    public ResponseEntity<?> deletar(@PathVariable String id){
 
         var contatoDeletado = contatosServiceV2.deletar(id);
 
@@ -90,4 +79,20 @@ public class ContatosV2Controller {
                 ResponseEntity.status(404).body("Contato não Encontrado") :
                 ResponseEntity.status(201).body("Contato Deletado");
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<?> atualizar(@PathVariable String id,
+                                       @RequestParam(value = "nome", required = false) String nome,
+                                       @RequestParam(value = "documento", required = false) String documento){
+
+        // RequestParam para receber os dados dos campos Value nas variáveis do Parametro.
+
+        var contatoAlterado = contatosServiceV2.atualizar(id, nome, documento);
+
+        return isNull(contatoAlterado) ?
+                ResponseEntity.status(404).body("Contato não encontrado") :
+                ResponseEntity.status(201).body(contatoAlterado);
+    }
+
+
 }

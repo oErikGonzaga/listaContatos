@@ -14,10 +14,6 @@ public class ContatosServiceV2 {
 
     private final List<ContatosV2> listaContatos = new ArrayList<>();
 
-    public List<ContatosV2> listar(){
-        return listaContatos;
-    }
-
     public ContatosV2 cadastrar(ContatosV2 contatosV2){
 
         /*  Verificando se o contato já existe.
@@ -33,6 +29,13 @@ public class ContatosServiceV2 {
         contatosV2.setId(UUID.randomUUID().toString());
         listaContatos.add(contatosV2);
         return contatosV2;
+    }
+
+    public List<ContatosV2> listar(){
+
+        // Retornando a Lista de Contatos
+
+        return listaContatos;
     }
 
     public ContatosV2 buscarPorId(String id){
@@ -51,6 +54,11 @@ public class ContatosServiceV2 {
 
     public boolean inativar(String id){
 
+        /*  Buscando um contato pelo ID gerado no cadastro;
+            Caso o ID seja igual ao do banco e ele esteja ATIVO
+            o contato será alterado para INATIVO.
+        */
+
         for (ContatosV2 c : listaContatos) {
             if ((id.equals(c.getId()) && (c.isAtivo()))) {
                 c.setAtivo(false);
@@ -66,7 +74,7 @@ public class ContatosServiceV2 {
         return null;
     }
 
-    public ContatosV2 alterar(String id,String nome, String documento){
+    public ContatosV2 atualizar(String id, String nome, String documento){
 
         for (ContatosV2 c : listaContatos) {
             if ((id.equals(c.getId()) && (c.isAtivo()) &&
@@ -82,4 +90,5 @@ public class ContatosServiceV2 {
         }
         return null;
     }
+
 }
