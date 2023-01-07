@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -18,8 +19,8 @@ public class ContatosV2Controller {
 
     private final List<ContatosV2> listaContatos = new ArrayList<>();
 
-
     ContatosServiceV2 contatosServiceV2 = new ContatosServiceV2();
+
     @GetMapping(value= "healthcheckv2")
     public ResponseEntity<String> checkStatus(){
         String result = "App Contatos, Ok";
@@ -32,7 +33,9 @@ public class ContatosV2Controller {
 
         var contatoCriado = contatosServiceV2.cadastrar(contatosV2);
 
-        return ResponseEntity.status(200).body(contatoCriado);
+            return Objects.isNull(contatoCriado) ?
+                    ResponseEntity.status(404).body("Contato já existe") :
+                    ResponseEntity.status(200).body(contatoCriado);
     }
 
 
@@ -46,9 +49,11 @@ public class ContatosV2Controller {
 
         var contatoEncontrado = contatosServiceV2.buscarPorId(id);
 
-        return isNull(contatoEncontrado) ?
-                ResponseEntity.status(404).body("Contato não Encontrado"):
-                ResponseEntity.ok(contatoEncontrado);
+        if (Objects.nonNull(contatoEncontrado)){
+            return ResponseEntity.accepted().body(contatoEncontrado);
+        }
+
+        return ResponseEntity.status(404).body("Contato não Encontrado");
     }
 
 
@@ -71,7 +76,7 @@ public class ContatosV2Controller {
         var contatoAlterado = contatosServiceV2.alterar(id, nome, documento);
 
         return isNull(contatoAlterado) ?
-                ResponseEntity.status(201).body("Contato não encontrado") :
+                ResponseEntity.status(404).body("Contato não encontrado") :
                 ResponseEntity.status(201).body(contatoAlterado);
     }
 

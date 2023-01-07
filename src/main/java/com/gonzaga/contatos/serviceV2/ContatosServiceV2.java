@@ -20,9 +20,18 @@ public class ContatosServiceV2 {
 
     public ContatosV2 cadastrar(ContatosV2 contatosV2){
 
+        /*  Verificando se o contato já existe.
+            Se documento existir no banco, será retornado Null.
+            Se não, um contato será criado.
+        */
+
+        for (ContatosV2 c : listaContatos) {
+            if (c.getDocumento().equals(contatosV2.getDocumento())){
+                return null;
+            }
+        }
         contatosV2.setId(UUID.randomUUID().toString());
         listaContatos.add(contatosV2);
-
         return contatosV2;
     }
 
@@ -36,26 +45,20 @@ public class ContatosServiceV2 {
         return null;
     }
 
-    public ContatosV2 inativar(String id){
+    public boolean inativar(String id){
 
-        for (var c : listaContatos) {
+        for (ContatosV2 c : listaContatos) {
             if ((id.equals(c.getId()) && (c.isAtivo()))) {
                 c.setAtivo(false);
+                return true;
             }
-            return c;
         }
-        return null;
+        return false;
     }
 
     public ContatosV2 deletar(String id){
 
-        for (ContatosV2 c : listaContatos) {
-            if (c.getId().equals(id) && c.isAtivo()) {
-                listaContatos.remove(c);
-                System.out.println("Apagou");
-            }
-            return c;
-        }
+        listaContatos.removeIf(c -> c.getId().equals(id) && c.isAtivo());
         return null;
     }
 
@@ -75,5 +78,4 @@ public class ContatosServiceV2 {
         }
         return null;
     }
-
 }
