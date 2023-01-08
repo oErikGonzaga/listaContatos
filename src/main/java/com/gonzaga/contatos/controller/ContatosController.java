@@ -7,12 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 // Entrada de informações, EndPoint (aonde recebemos as informações dos usuários)
 @Slf4j
@@ -47,12 +46,10 @@ public class ContatosController {
              return ResponseEntity.badRequest().body("Token de Acesso Inválido");
          }
 
-         if (Objects.nonNull(contatoCriado)){
-             System.out.println("Criado");
-             return ResponseEntity.status(201).body(contatoCriado);
-         }
-         return ResponseEntity.status(HttpStatus.CREATED).body(contato);
-     }
+        return Objects.isNull(contatoCriado) ?
+                ResponseEntity.badRequest().build() :
+                ResponseEntity.ok(contatoCriado);
+    }
 
      @GetMapping
      public List<Contato> listar(){
