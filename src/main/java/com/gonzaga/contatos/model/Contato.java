@@ -8,7 +8,7 @@ public class Contato {
     private String id;
     private boolean ativo;
     private String nome;
-    private String email;
+    private Long documento;
     public Contato(){
         ativo = true;
     }
