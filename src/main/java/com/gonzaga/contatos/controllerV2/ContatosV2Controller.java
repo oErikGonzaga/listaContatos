@@ -70,12 +70,22 @@ public class ContatosV2Controller {
                 ResponseEntity.notFound().build();
     }
 
-    @PatchMapping("{id}")
+    @PatchMapping("inativar/{id}")
     public ResponseEntity<?> inativar(@PathVariable String id){
 
         var contatoInativado = contatosServiceV2.inativar(id);
 
         return isNull(contatoInativado) ?
+                ResponseEntity.notFound().build() :
+                ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("ativar{id}")
+    public ResponseEntity<?> ativar(@PathVariable String id){
+
+        var contatoAtivado = contatosServiceV2.ativar(id);
+
+        return isNull(contatoAtivado) ?
                 ResponseEntity.notFound().build() :
                 ResponseEntity.ok().build();
     }
