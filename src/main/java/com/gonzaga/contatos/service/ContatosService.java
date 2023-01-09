@@ -17,6 +17,12 @@ public class ContatosService {
     }
     public Contato cadastrar(Contato contato){
 
+
+        for (Contato c : contatos) {
+            if (c.getDocumento().equals(contato.getDocumento())){
+                return null;
+            }
+        }
         contato.setId(UUID.randomUUID().toString());
         contatos.add(contato);
         return contato;
