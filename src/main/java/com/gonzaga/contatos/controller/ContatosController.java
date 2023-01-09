@@ -1,8 +1,7 @@
 package com.gonzaga.contatos.controller;
 
 import com.gonzaga.contatos.model.Contato;
-import com.gonzaga.contatos.service.ContatosService;
-import com.gonzaga.contatos.service.ContatosServicesInterface;
+import com.gonzaga.contatos.service.ContatosServices;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
