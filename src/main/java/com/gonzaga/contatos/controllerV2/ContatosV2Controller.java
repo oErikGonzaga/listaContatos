@@ -37,11 +37,15 @@ public class ContatosV2Controller {
     }
 
     @PostMapping("cadastrar")
-    public ResponseEntity<?> cadastrar(@RequestBody ContatosV2 contatosV2){
+    public ResponseEntity<?> cadastrar(@RequestBody ContatosV2 contatosV2,
+                                       @RequestHeader(value = "Token") String token){
+
+        //  ResponseEntity passando o número do StatusCode com Body como resposta
 
         var contatoCriado = contatosServiceV2.cadastrar(contatosV2);
 
-        //  ResponseEntity passando o número do StatusCode com Body como resposta
+        if (!TOKEN_ACCESS.equals(token))
+            return ResponseEntity.status(400).body("Token de acesso inválido");
 
         return Objects.isNull(contatoCriado) ?
                 ResponseEntity.status(404).body("Contato já existe") :
