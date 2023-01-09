@@ -11,4 +11,4 @@ CREATE TABLE contato(
 
 SELECT * FROM contato;
 
-INSERT INTO contato VALUES('', '', '', true);
+INSERT INTO contato VALUES('123456', 'Erik Gonzaga de Souza', '12345678900', true);
