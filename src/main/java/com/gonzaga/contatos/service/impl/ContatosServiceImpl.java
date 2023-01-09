@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import static java.util.Objects.nonNull;
@@ -40,11 +41,7 @@ public class ContatosServiceImpl implements ContatosServices {
 
     @Override
     public Contato buscarPorId(String id) {
-
-        return  contatos.stream()
-                .filter(c -> id.equals(c.getId()))
-                .findFirst()
-                .orElse(null);
+        return contatosRepository.findById(id).orElse(null);
     }
 
     @Override
