@@ -1,5 +1,6 @@
-package com.gonzaga.contatos.service;
+package com.gonzaga.contatos.service.impl;
 import com.gonzaga.contatos.model.Contato;
+import com.gonzaga.contatos.service.ContatosServices;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +11,8 @@ import java.util.UUID;
 import static java.util.Objects.nonNull;
 
 @Data
-@Service // Anotando (Transformando) esta classe como (em) um Bean do Spring com @Service.
-public class ContatosService implements ContatosServicesInterface{
+@Service
+public class ContatosServiceImpl implements ContatosServices {
 
     private final List<Contato> contatos = new ArrayList<>();
 
