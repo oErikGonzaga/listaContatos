@@ -58,6 +58,20 @@ public class ContatosServiceImpl implements ContatosServices {
     }
 
     @Override
+    public boolean ativar(String id) {
+
+        var contato = contatos
+                .stream()
+                .filter(c -> c.getId().equals(id) && !c.isAtivo())
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Contato nao encontrado ou inativo"));
+
+        contato.setAtivo(true);
+
+        return true;
+    }
+
+    @Override
     public Contato deletar(String id) {
 
         contatos.removeIf(c -> c.getId().equals(id) && c.isAtivo());
