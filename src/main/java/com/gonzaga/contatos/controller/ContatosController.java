@@ -65,7 +65,6 @@ public class ContatosController {
          return ResponseEntity.ok(contatosService.listar());
      }
 
-
     // Filtrando um contato pelo Id
     @GetMapping(value = "{id}")
     public  ResponseEntity<?> buscarPorId(@PathVariable String id,
@@ -85,26 +84,23 @@ public class ContatosController {
                 ResponseEntity.ok(resp);
     }
 
-     @PutMapping(value = "alterar/{id}")
-     public ResponseEntity<Contato> alterar(@PathVariable String id,
-                                            @RequestHeader(value = "Authorization") String auth,
-                                            @RequestParam(value = "nome", required = false) String nome,
-                                            @RequestParam(value = "email", required = false) String valor) {
 
-         var contato = contatosService.alterar(id);
+    @PatchMapping(value = "inativar/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<?> inativar(@PathVariable String id,
+                                      @RequestHeader(value = "Token") String token) {
 
         log.info("ContatosController.inativar init");
 
-         if (Objects.nonNull(nome)){
-             contato.setNome(nome);
-         }
+        boolean contatoInativado = contatosService.inativar(id);
 
-         if (valor != null){
-             contato.setEmail(valor);
-         }
-         return ResponseEntity.status(HttpStatus.ACCEPTED).body(contato);
-     }
-
+        if (!TOKEN_ACCESS.equals(token)) {
+            return ResponseEntity.badRequest().build();
+        }
+        return contatoInativado ?
+                ResponseEntity.ok().build() :
+                ResponseEntity.notFound().build();
+    }
 
     @DeleteMapping(value = "{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
@@ -129,11 +125,18 @@ public class ContatosController {
 
         log.info("ContatosController.atualizar init");
 
-        boolean contatoInativado = contatosService.inativar(id);
+        var contato = contatosService.atualizar(id, nome, documento);
 
-        if (!TOKEN_ACCESS.equals(auth)){
-            throw new RuntimeException("Token de Acesso Inválido");
+        if (!TOKEN_ACCESS.equals(token)) {
+            return ResponseEntity.badRequest().build();
         }
-        return contatoInativado ? ResponseEntity.ok(201) : ResponseEntity.status(404).build();
+
+        if (nonNull(nome))
+            contato.setNome(nome);
+
+        if (nonNull(documento))
+            contato.setDocumento(Long.valueOf(documento));
+
+        return ResponseEntity.ok(contato);
     }
 }
