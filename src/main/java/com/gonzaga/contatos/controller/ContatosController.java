@@ -35,9 +35,9 @@ public class ContatosController {
         return ResponseEntity.ok(check);
     }
 
-     @PostMapping
-     public ResponseEntity<?> criar(@RequestBody Contato contato,
-                                    @RequestHeader(value = "Authorization") String auth) {
+    @PostMapping()
+    public ResponseEntity<?> cadastrar(@RequestBody Contato contato,
+                                       @RequestHeader(value = "Token") String token) {
 
          /* Garantindo que não seja gerado um nullPointer
          ao inves de if (!auth.equals(TOKEN_ACCESS))
