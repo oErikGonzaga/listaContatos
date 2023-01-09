@@ -47,14 +47,19 @@ public class ContatosServiceImpl implements ContatosServices {
     @Override
     public boolean inativar(String id) {
 
-        var contato = contatos
-                .stream()
-                .filter(c -> c.getId().equals(id) && c.isAtivo())
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Contato nao encontrado ou inativo"));
+//        var contato = contatos
+//                .stream()
+//                .filter(c -> c.getId().equals(id) && c.isAtivo())
+//                .findFirst()
+//                .orElseThrow(() -> new RuntimeException("Contato nao encontrado ou inativo"));
 
-        contato.setAtivo(false);
+        var contato = buscarPorId(id);
 
+        if (Objects.nonNull(contato)){
+            contato.setAtivo(false);
+            contatosRepository.save(contato);
+            return true;
+        }
         return true;
     }
 
