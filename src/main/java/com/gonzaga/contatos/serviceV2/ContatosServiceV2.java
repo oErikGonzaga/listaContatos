@@ -3,6 +3,7 @@ package com.gonzaga.contatos.serviceV2;
 import com.gonzaga.contatos.modelV2.ContatosV2;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +11,12 @@ import java.util.UUID;
 
 import static java.util.Objects.nonNull;
 
+        /*  Anotando (Transformando) esta classe como (em)
+            um Bean do Spring com @Service. */
+
 @Data
 @Slf4j
+@Service
 public class ContatosServiceV2 {
 
     private final List<ContatosV2> listaContatos = new ArrayList<>();
@@ -80,6 +85,25 @@ public class ContatosServiceV2 {
         for (ContatosV2 c : listaContatos) {
             if ((id.equals(c.getId()) && (c.isAtivo()))) {
                 c.setAtivo(false);
+                return true;
+            }
+        }
+
+        log.info("ContatosController.inativar end");
+
+        return false;
+    }
+
+    public boolean ativar(String id){
+
+        /*  Buscando um contato pelo ID gerado no cadastro;
+            Caso o ID seja igual ao do banco e ele esteja ATIVO
+            o contato será alterado para INATIVO.
+        */
+
+        for (ContatosV2 c : listaContatos) {
+            if ((c.getId().equals(id) && !c.isAtivo())) {
+                c.setAtivo(true);
                 return true;
             }
         }
