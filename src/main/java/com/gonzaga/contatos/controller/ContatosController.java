@@ -87,7 +87,6 @@ public class ContatosController {
                 ResponseEntity.ok(resp);
     }
 
-
     @PatchMapping(value = "inativar/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> inativar(@PathVariable String id,
@@ -101,6 +100,23 @@ public class ContatosController {
             return ResponseEntity.badRequest().build();
         }
         return contatoInativado ?
+                ResponseEntity.ok().build() :
+                ResponseEntity.notFound().build();
+    }
+
+    @PatchMapping(value = "ativar/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<?> ativar(@PathVariable String id,
+                                    @RequestHeader(value = "Token") String token) {
+
+        log.info("ContatosController.ativar init");
+
+        boolean contatoAtivado = contatosService.ativar(id);
+
+        if (!TOKEN_ACCESS.equals(token)) {
+            return ResponseEntity.badRequest().build();
+        }
+        return contatoAtivado ?
                 ResponseEntity.ok().build() :
                 ResponseEntity.notFound().build();
     }
