@@ -2,7 +2,9 @@ package com.gonzaga.contatos.controller;
 
 import com.gonzaga.contatos.model.Contato;
 import com.gonzaga.contatos.service.ContatosService;
+import com.gonzaga.contatos.service.ContatosServicesInterface;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +21,8 @@ import static java.util.Objects.nonNull;
 @RequestMapping("contatos") // Adiciona um path fixo antecedente aos demais paths.
 public class ContatosController {
 
-    ContatosService contatosService = new ContatosService();
+    @Autowired // Injetando a classe ContatosServices, para instanciação da classe.
+    ContatosServicesInterface contatosService;
     private static final String TOKEN_ACCESS = "BC6X8639be18b115a9";
 
     /* Chave de Acesso, comparada via Header
