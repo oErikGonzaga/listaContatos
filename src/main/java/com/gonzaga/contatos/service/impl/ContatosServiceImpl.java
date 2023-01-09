@@ -1,7 +1,9 @@
 package com.gonzaga.contatos.service.impl;
 import com.gonzaga.contatos.model.Contato;
+import com.gonzaga.contatos.repositories.ContatosRepository;
 import com.gonzaga.contatos.service.ContatosServices;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +17,9 @@ import static java.util.Objects.nonNull;
 public class ContatosServiceImpl implements ContatosServices {
 
     private final List<Contato> contatos = new ArrayList<>();
+
+    @Autowired
+    private ContatosRepository contatosRepository;
 
     @Override
     public List<Contato> listar() {
