@@ -51,7 +51,12 @@ public class ContatosService {
 
         return true;
     }
-    public Contato alterar(String id){
+    public Contato deletar(String id){
+
+        contatos.removeIf(c -> c.getId().equals(id) && c.isAtivo());
+        return null;
+    }
+    public Contato atualizar(String id, String nome, String documento){
 
         var contato = contatos
                 .stream()
