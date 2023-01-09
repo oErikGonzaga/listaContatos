@@ -37,7 +37,9 @@ public class ContatosController {
 
     @PostMapping()
     public ResponseEntity<?> cadastrar(@RequestBody Contato contato,
-                                       @RequestHeader(value = "Token") String token) {
+                                       @RequestHeader String token) {
+                                       /* Quando o paramêtro recebe o mesmo nome que o Header
+                                        não necessidade de adicionar value */
 
          /* Garantindo que não seja gerado um nullPointer
          ao inves de if (!auth.equals(TOKEN_ACCESS))
