@@ -22,7 +22,7 @@ import static java.util.Objects.nonNull;
 public class ContatosController {
 
     @Autowired // Injetando a classe ContatosServices, para instanciação da classe.
-    ContatosServicesInterface contatosService;
+    ContatosServices contatosService;
     private static final String TOKEN_ACCESS = "BC6X8639be18b115a9";
 
     /* Chave de Acesso, comparada via Header
