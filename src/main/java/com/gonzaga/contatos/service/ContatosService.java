@@ -1,11 +1,12 @@
 package com.gonzaga.contatos.service;
-
 import com.gonzaga.contatos.model.Contato;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import static java.util.Objects.nonNull;
 
 @Data
 public class ContatosService {
@@ -30,7 +31,6 @@ public class ContatosService {
     public Contato buscarPorId(String id){
 
         var resp = contatos.stream()
-                // Garantindo que não vou tomar um NullPointer (invertendo a lógica)
                 .filter(c -> id.equals(c.getId()))
                 .findFirst()
                 .orElse(null);
@@ -68,11 +68,4 @@ public class ContatosService {
 
         return contato;
     }
-    public Contato deletar(String id){
-
-        contatos.removeIf(c -> c.getId().equals(id) && c.isAtivo());
-        return null;
-    }
-
-
 }
