@@ -18,10 +18,18 @@
 	</properties>
 	<dependencies>
 
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-data-jpa</artifactId>-->
-<!--		</dependency>-->
+		<!--JPA, Cria camada de acesso aos dados-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!--Driver de conexão com o Banco MySQL-->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.30</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
