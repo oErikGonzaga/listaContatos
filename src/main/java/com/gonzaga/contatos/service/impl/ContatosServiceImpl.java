@@ -35,8 +35,7 @@ public class ContatosServiceImpl implements ContatosServices {
             return null;
 
         contato.setId(UUID.randomUUID().toString());
-        contatosRepository.save(contato);
-        return contato;
+        return contatosRepository.save(contato);
     }
 
     @Override
