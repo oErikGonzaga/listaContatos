@@ -12,4 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ContatosRepository extends JpaRepository<Contato, String> {
 
+    Contato findFirstByDocumento(Long documento);
+
 }
