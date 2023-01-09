@@ -60,7 +60,9 @@ public class ContatosService {
 
         var contato = contatos
                 .stream()
-                .filter(c -> c.getId().equals(id))
+                .filter(c -> id.equals(c.getId()) && (c.isAtivo())
+                        && !(c.equals(nome)) && (nonNull(nome))
+                        && !(c.equals(documento)) && c.getDocumento() != null)
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Contato nao encontrado"));
 
