@@ -23,7 +23,7 @@ public class ContatosServiceImpl implements ContatosServices {
 
     @Override
     public List<Contato> listar() {
-        return contatos;
+        return contatosRepository.findAll();
     }
 
     @Override
