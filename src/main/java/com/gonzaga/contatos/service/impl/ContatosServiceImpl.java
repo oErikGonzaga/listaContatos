@@ -29,11 +29,11 @@ public class ContatosServiceImpl implements ContatosServices {
     @Override
     public Contato cadastrar(Contato contato) {
 
-        for (Contato c : contatos) {
-            if (c.getDocumento().equals(contato.getDocumento())){
-                return null;
-            }
-        }
+        var contatoEncontrado = contatosRepository.findFirstByDocumento(contato.getDocumento());
+
+        if (Objects.nonNull(contatoEncontrado))
+            return null;
+
         contato.setId(UUID.randomUUID().toString());
         contatosRepository.save(contato);
         return contato;
