@@ -21,6 +21,12 @@ public class ContatosV2Controller {
 
     ContatosServiceV2 contatosServiceV2 = new ContatosServiceV2();
 
+    private static final String TOKEN_ACCESS = "BC6X8639be18b115a9";
+
+    /* Chave de Acesso, comparada via Header
+    (em exemplo: uma chave fica com o cliente e outra no sistema
+    para comparação e liberação de acesso) */
+
     @GetMapping(value= "healthcheckv2")
     public ResponseEntity<String> checkStatus(){
 
