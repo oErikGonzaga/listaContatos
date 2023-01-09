@@ -21,15 +21,19 @@ public class ContatosController {
 
     ContatosService contatosService = new ContatosService();
     private static final String TOKEN_ACCESS = "BC6X8639be18b115a9";
+
     /* Chave de Acesso, comparada via Header
     (em exemplo: uma chave fica com o cliente e outra no sistema
     para comparação e liberação de acesso) */
 
+    @GetMapping(value = "check")
+    public ResponseEntity<String> checkStatus() {
 
-    @GetMapping(value = "healthcheck")
-    public String check() {
-         return "App is Working";
-     }
+        // Checkando conexão com o EndPoint
+
+        String check = "App Contatos está Ok";
+        return ResponseEntity.ok(check);
+    }
 
      @PostMapping
      public ResponseEntity<?> criar(@RequestBody Contato contato,
@@ -57,9 +61,10 @@ public class ContatosController {
      }
 
 
-     // Filtrando um contato pelo Id
-     @GetMapping(value = "{id}")
-     public  ResponseEntity<?> buscarPorId(@PathVariable String id){
+    // Filtrando um contato pelo Id
+    @GetMapping(value = "{id}")
+    public  ResponseEntity<?> buscarPorId(@PathVariable String id,
+                                          @RequestHeader(value = "Token") String token){
 
          var resp = contatosService.buscarPorId(id);
 
