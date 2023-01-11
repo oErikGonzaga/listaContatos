@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
 
 // Entrada de informações, EndPoint (aonde recebemos as informações dos usuários)
 @Slf4j
@@ -57,14 +56,15 @@ public class ContatosController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Contato>> listar(@RequestHeader(value = "Token") String token){
+    public ResponseEntity<List<Contato>> listar(@RequestParam(value = "ativo", required = false) Boolean ativo,
+                                                @RequestHeader(value = "Token") String token){
 
-         log.info("ContatosController.listar init");
+        log.info("ContatosController.listar init");
+        if (!TOKEN_ACCESS.equals(token)) {
+            return ResponseEntity.badRequest().build();
+        }
 
-         if (!TOKEN_ACCESS.equals(token)) {
-             return ResponseEntity.badRequest().build();
-         }
-         return ResponseEntity.ok(contatosService.listar());
+        return ResponseEntity.ok(contatosService.listar(ativo));
      }
 
     // Filtrando um contato pelo Id
@@ -136,7 +136,7 @@ public class ContatosController {
     }
 
     @PutMapping(value = "atualizar/{id}")
-    public ResponseEntity<Contato> atualizar(@PathVariable String id,
+    public ResponseEntity<?> atualizar(@PathVariable String id,
                                        @RequestHeader(value = "Token") String token,
                                        @RequestParam(value = "nome", required = false) String nome,
                                        @RequestParam(value = "documento", required = false) String documento) {
