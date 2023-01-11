@@ -137,9 +137,9 @@ public class ContatosController {
 
     @PutMapping(value = "atualizar/{id}")
     public ResponseEntity<Contato> atualizar(@PathVariable String id,
-                                             @RequestHeader(value = "Token") String token,
-                                             @RequestParam(value = "nome", required = false) String nome,
-                                             @RequestParam(value = "documento", required = false) String documento) {
+                                       @RequestHeader(value = "Token") String token,
+                                       @RequestParam(value = "nome", required = false) String nome,
+                                       @RequestParam(value = "documento", required = false) String documento) {
 
         log.info("ContatosController.atualizar init");
 
@@ -148,12 +148,6 @@ public class ContatosController {
         if (!TOKEN_ACCESS.equals(token)) {
             return ResponseEntity.badRequest().build();
         }
-
-        if (nonNull(nome))
-            contato.setNome(nome);
-
-        if (nonNull(documento))
-            contato.setDocumento(Long.valueOf(documento));
 
         return ResponseEntity.ok(contato);
     }
