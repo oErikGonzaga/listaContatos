@@ -73,10 +73,15 @@ public class ContatosServiceImpl implements ContatosServices {
     }
 
     @Override
-    public Contato deletar(String id) {
+    public boolean deletar(String id) {
 
-        contatos.removeIf(c -> c.getId().equals(id) && c.isAtivo());
-        return null;
+        var contato = buscarPorId(id);
+
+        if (Objects.isNull(contato)) return false;
+
+        contatosRepository.deleteById(contato.getId());
+
+        return true;
     }
 
     @Override
