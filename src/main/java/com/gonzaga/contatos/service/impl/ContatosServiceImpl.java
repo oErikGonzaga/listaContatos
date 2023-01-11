@@ -63,10 +63,12 @@ public class ContatosServiceImpl implements ContatosServices {
         var contato = buscarPorId(id);
 
         if (Objects.nonNull(contato)){
+
             contato.setAtivo(true);
             contatosRepository.save(contato);
             return true;
         }
+
         return true;
     }
 
