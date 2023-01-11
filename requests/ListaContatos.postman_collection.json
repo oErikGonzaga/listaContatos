@@ -1,0 +1,551 @@
+{
+	"info": {
+		"_postman_id": "1711476d-a9f0-4c10-bbd7-d178c9e253e9",
+		"name": "Lista de Contatos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23207837"
+	},
+	"item": [
+		{
+			"name": "Contatos",
+			"item": [
+				{
+					"name": "Check Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/contatos/check",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contatos",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "BC6X8639be18b115a9",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Erik Gonzaga de Souza\",\n    \"documento\": \"36141051804\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/contatos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contatos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "BC6X8639be18b115a9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/contatos?ativo=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contatos"
+							],
+							"query": [
+								{
+									"key": "ativo",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar por Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "BC6X8639be18b115a9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/contatos/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contatos",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "b96aa3a9-41ad-4757-8dfc-1408523a0fd6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inativar",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Token",
+								"value": "BC6X8639be18b115a9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/contatos/inativar/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contatos",
+								"inativar",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3473153d-ab43-4d2f-a83f-74e4ed969da1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ativar",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Token",
+								"value": "BC6X8639be18b115a9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/contatos/ativar/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contatos",
+								"ativar",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3473153d-ab43-4d2f-a83f-74e4ed969da1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Token",
+								"value": "BC6X8639be18b115a9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/contatos/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contatos",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "a77a12d8-65d7-4f79-ac2c-164ee92c8691"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Token",
+								"value": "BC6X8639be18b115a9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/contatos/atualizar/:id?nome=Tebastilson Junior&documento=12345678910",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contatos",
+								"atualizar",
+								":id"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "Tebastilson Junior"
+								},
+								{
+									"key": "documento",
+									"value": "12345678910"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3473153d-ab43-4d2f-a83f-74e4ed969da1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contatos V2",
+			"item": [
+				{
+					"name": "Check Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/contatos/v2/healthcheckv2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contatos",
+								"v2",
+								"healthcheckv2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "BC6X8639be18b115a9",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Nome Sobrenome\",\n    \"documento\": \"10000000000\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/contatos/v2/cadastrar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contatos",
+								"v2",
+								"cadastrar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "BC6X8639be18b115a9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/contatos/v2/listar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contatos",
+								"v2",
+								"listar"
+							],
+							"query": [
+								{
+									"key": null,
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": null,
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar por Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "BC6X8639be18b115a9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/contatos/v2/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contatos",
+								"v2",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "75970959-449e-40b5-ac92-c2d6e5c7f58d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inativar",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Token",
+								"value": "BC6X8639be18b115a9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/contatos/v2/inativar/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contatos",
+								"v2",
+								"inativar",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2dcf22ca-a8de-497b-90f1-48cdf4e952d0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ativar",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Token",
+								"value": "BC6X8639be18b115a9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/contatos/v2/ativar/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contatos",
+								"v2",
+								"ativar",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2dcf22ca-a8de-497b-90f1-48cdf4e952d0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Token",
+								"value": "BC6X8639be18b115a9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/contatos/v2/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contatos",
+								"v2",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "b57a5961-efbe-441d-8905-227989eab82d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Token",
+								"value": "BC6X8639be18b115a9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/contatos/v2/:id?nome=Teste&documento=1234567890",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contatos",
+								"v2",
+								":id"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "Teste"
+								},
+								{
+									"key": "documento",
+									"value": "1234567890"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "75970959-449e-40b5-ac92-c2d6e5c7f58d"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
