@@ -42,7 +42,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\": \"Erik Gonzaga de Souza\",\n    \"documento\": \"36141051804\"\n}",
+							"raw": "{\n    \"nome\": \"Tebastesia Constancia\",\n    \"documento\": \"12345678900\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -527,7 +527,7 @@
 							],
 							"query": [
 								{
-									"key": "nome",
+									"key": "Nome e Sobrenome",
 									"value": "Teste"
 								},
 								{
