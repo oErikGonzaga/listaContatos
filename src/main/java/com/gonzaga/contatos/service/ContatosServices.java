@@ -11,6 +11,6 @@ public interface ContatosServices {
     Contato buscarPorId(String id);
     boolean inativar(String id);
     boolean ativar(String id);
-    Contato deletar(String id);
-    Contato atualizar(String id, String nome, String documento);
+    boolean deletar(String id);
+    boolean atualizar(String id, String nome, String documento);
 }
