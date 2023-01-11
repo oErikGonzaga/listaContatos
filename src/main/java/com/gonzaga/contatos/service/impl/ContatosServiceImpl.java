@@ -85,14 +85,26 @@ public class ContatosServiceImpl implements ContatosServices {
     }
 
     @Override
-    public Contato atualizar(String id, String nome, String documento) {
+    public boolean atualizar(String id, String nome, String documento) {
 
-        return contatos
-                .stream()
-                .filter(c -> id.equals(c.getId()) && (c.isAtivo())
-                        && !(c.equals(nome)) && (nonNull(nome))
-                        && !(c.equals(documento)) && c.getDocumento() != null)
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Contato nao encontrado"));
+        var contato = buscarPorId(id);
+
+        if (Objects.isNull(contato)) return false;
+
+        boolean isAtualizado = false;
+
+        if (Objects.nonNull(nome) && !("".equals(nome)) && !(nome.equals(contato.getNome()))) {
+            contato.setNome(nome);
+            isAtualizado = true;
+        }
+
+        if (Objects.nonNull(documento) && !(documento.equals(contato.getDocumento()))) {
+            contato.setDocumento(Long.valueOf(documento));
+            isAtualizado = true;
+        }
+
+        if (isAtualizado = true) contatosRepository.save(contato);
+
+        return isAtualizado;
     }
 }
