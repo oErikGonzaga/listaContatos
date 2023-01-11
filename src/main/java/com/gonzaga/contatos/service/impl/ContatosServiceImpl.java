@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-import static java.util.Objects.nonNull;
-
 @Data
 @Service
 public class ContatosServiceImpl implements ContatosServices {
@@ -35,8 +33,12 @@ public class ContatosServiceImpl implements ContatosServices {
     }
 
     @Override
-    public List<Contato> listar() {
-        return contatosRepository.findAll();
+    public List<Contato> listar(Boolean ativo) {
+
+        if (Objects.isNull(ativo))
+            return contatosRepository.findAll();
+
+        return contatosRepository.findAllByAtivo(ativo);
     }
 
     @Override
