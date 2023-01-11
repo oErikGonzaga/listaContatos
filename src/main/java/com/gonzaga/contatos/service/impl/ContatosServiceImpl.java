@@ -23,11 +23,6 @@ public class ContatosServiceImpl implements ContatosServices {
     private ContatosRepository contatosRepository;
 
     @Override
-    public List<Contato> listar() {
-        return contatosRepository.findAll();
-    }
-
-    @Override
     public Contato cadastrar(Contato contato) {
 
         var contatoEncontrado = contatosRepository.findFirstByDocumento(contato.getDocumento());
@@ -37,6 +32,11 @@ public class ContatosServiceImpl implements ContatosServices {
 
         contato.setId(UUID.randomUUID().toString());
         return contatosRepository.save(contato);
+    }
+
+    @Override
+    public List<Contato> listar() {
+        return contatosRepository.findAll();
     }
 
     @Override
