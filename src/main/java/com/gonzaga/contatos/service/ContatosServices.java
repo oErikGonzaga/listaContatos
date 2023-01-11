@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ContatosServices {
 
-    List<Contato> listar();
+    List<Contato> listar(Boolean ativo);
     Contato cadastrar(Contato contato);
     Contato buscarPorId(String id);
     boolean inativar(String id);
