@@ -53,7 +53,7 @@ public class ContatosV2Controller {
     }
 
     @GetMapping("listar")
-    public List<ContatosV2> listar(){
+    public List<ContatosV2> listar(@RequestParam(value = "ativo", required = false) Boolean ativo){
 
         return contatosServiceV2.listar();
     }
