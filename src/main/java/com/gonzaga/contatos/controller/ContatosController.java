@@ -58,16 +58,14 @@ public class ContatosController {
     @GetMapping
     public ResponseEntity<List<Contato>> listar(@RequestParam(value = "ativo", required = false) Boolean ativo,
                                                 @RequestHeader(value = "Token") String token){
+       log.info("ContatosController.listar init");
+       if (!TOKEN_ACCESS.equals(token)) {
+           return ResponseEntity.badRequest().build();
+       }
 
-        log.info("ContatosController.listar init");
-        if (!TOKEN_ACCESS.equals(token)) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        return ResponseEntity.ok(contatosService.listar(ativo));
-     }
-
-     @GetMapping(value = "{id}")
+       return ResponseEntity.ok(contatosService.listar(ativo));
+    }
+    @GetMapping(value = "{id}")
     public  ResponseEntity<?> buscarPorId(@PathVariable String id,
                                           @RequestHeader(value = "Token") String token){
 
