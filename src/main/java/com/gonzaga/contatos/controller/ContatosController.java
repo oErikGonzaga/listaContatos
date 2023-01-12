@@ -67,8 +67,7 @@ public class ContatosController {
         return ResponseEntity.ok(contatosService.listar(ativo));
      }
 
-    // Filtrando um contato pelo Id
-    @GetMapping(value = "{id}")
+     @GetMapping(value = "{id}")
     public  ResponseEntity<?> buscarPorId(@PathVariable String id,
                                           @RequestHeader(value = "Token") String token){
 
