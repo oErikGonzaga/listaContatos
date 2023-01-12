@@ -231,12 +231,7 @@ do contrário retorna _null_.
   e está ativo. Caso exista o contato é removido do Banco de Dados,
   do contrário retorna _null_.
 
-**Deletar**
-- Utilizamos a função _buscarPorId_ para verificar se o contato existe,
-  e está ativo. Caso exista o contato é removido do Banco de Dados,
-  do contrário retorna _null_.
-
-**Deletar**
+**Atualizar**
 - Utilizamos a função _buscarPorId_ para verificar se o contato existe,
   e está ativo. 
 - Criamos uma variavel para informar se o contato está atualizado 
@@ -250,4 +245,4 @@ retorna _null_.
 <br>
 
 **IDE**
-<br>Foi utilizada API intellij idea.
+<br>Foi utilizada API Intellij idea.
