@@ -15,8 +15,6 @@ import java.util.UUID;
 @Service
 public class ContatosServiceImpl implements ContatosServices {
 
-    private final List<Contato> contatos = new ArrayList<>();
-
     @Autowired
     private ContatosRepository contatosRepository;
 
