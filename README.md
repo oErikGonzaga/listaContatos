@@ -15,7 +15,7 @@ _HTTP_ utilizando os métodos _GET e POST, PUT E DELETE_
 via _REST API_.
 
 ><p> A aplicação consiste em um sistema de criação de lista de Contatos.
-><br> Aonde os dados de Nome e Documentação do Usuário são:
+Aonde os dados de Nome e Documentação do Usuário são:
 >Inseridos, tratados e armazenado no Banco de Dados.
 
 >Uma divisão de Classes é feita entre pacotes com suas respectivas funcionalidades.
