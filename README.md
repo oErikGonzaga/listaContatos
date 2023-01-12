@@ -196,6 +196,7 @@ de nossos REQUESTS e do Banco de Dados
 > Esta Interface _ContatosRepository_ extende outra chamada _JpaRepository_.
 ><br> _JpaRepository_ fica responsável por fazer CRUDs em nosso Banco de Dados.
 
+---
 
 ### Lógica dos Services
 
