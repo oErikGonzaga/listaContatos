@@ -78,6 +78,40 @@ no cadastro do contato.
 
 ```@PutMapping("{id}")```
 * Atualiza todos ou parcialmente os dados de contato através de um contato.
+
+---
+
+* #### ResponseEntity
+
+>Utilizado para "envolver" o Tipo do Método utilizado no EndPoint.
+Fornecendo opções de devolvermos um Código de Status, informando 
+se a requisição foi bem sucedida ou não entre outras respostas.
+
+<p> 
+Os Responses mais utilizados são os Status:
+<p> - Ok: 200
+<br>- Created: 201
+<br>- No Content: 204
+<br>- Bad Request: 400
+<br>- Not found: 404
+
+* #### Lógica de Acesso Token
+
+> Foi criado uma lógica de acesso via Header utilizando um TOKEN
+> de acesso, ao qual é gerado e repassado ao cliente que utilizará
+> a aplicação. Antes das operações é feito uma verificação ao Token
+> que se correto permite a execução do restante da operação, se não, 
+> é devolvido um erro de Requisição.
+
+Classe Privada de armazenamento do TOKEN:
+
+    private static final String TOKEN_ACCESS = "BC6X8639be18b115a9";
+
+Lógica de Acesso:
+
+          if (!TOKEN_ACCESS.equals(token)) 
+             return ResponseEntity.badRequest().build();
+
 ---
 
 ### Classe Model
@@ -138,9 +172,33 @@ implementarem terão que seguir estas regras.
 tratamento de dados. Aqui recebemos e recuperamos nossas informações
 de nossos REQUESTS e do Banco de Dados
 
+```@Service```
+<br>
+
+* Indica que a classe é um bean do Spring
+
+```@Autowired```
+<br>
+* Ele permite que o Spring resolva e injete beans de colaboração em nosso bean.
+
+```@Override```
+<br>
+* Utilizado para sobrescrita de um método da classe pai.
+
+
 
 
  
 ---
 
-### Classe Repository
+### Interface Repository
+
+> Esta Interface _ContatosRepository_ extende outra chamada _JpaRepository_.
+><br> _JpaRepository_ fica responsável por fazer CRUDs em nosso Banco de Dados.
+
+
+
+
+
+IDE
+<br>Foi utilizada API intellij idea.
