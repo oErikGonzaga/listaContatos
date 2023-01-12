@@ -197,8 +197,57 @@ de nossos REQUESTS e do Banco de Dados
 ><br> _JpaRepository_ fica responsável por fazer CRUDs em nosso Banco de Dados.
 
 
+### Lógica dos Services
 
+> Descrição da função de cada método utilizado nas implementações de Services
 
+**Cadastrar**
+ - É feita uma busca no Banco de Dados e armazenado seu valor em uma variável.
+Seguido de uma checagem verificado se o contato com o documento informado na
+requisição já existe. Caso exista é retornado _Null_, caso não exista é gerado
+um id aleatório e a criacão e armazenamento do contato é realizada no Banco de Dados.
 
-IDE
+**Listar**
+ - Feita uma verificação se o contato está ou não ativo, 
+é retornado uma lista com todos os contatos.
+ - Todos, Somente Ativos e Somente Inativos.
+
+**Buscar por Id**
+ - Caso o Id informado na requisição exista no Banco de Dados,
+é retornado o contato, do contrário retorna _null_.
+
+**Inativar**
+- Utilizamos a função _buscarPorId_ para verificar se o contato existe,
+e está ativo. Caso exista inativa-se o contato, 
+do contrário retorna _null_.
+
+**Ativar**
+- Utilizamos a função _buscarPorId_ para verificar se o contato existe,
+e está inativo. Caso exista ativa-se o contato,
+do contrário retorna _null_.
+
+**Deletar**
+- Utilizamos a função _buscarPorId_ para verificar se o contato existe,
+  e está ativo. Caso exista o contato é removido do Banco de Dados,
+  do contrário retorna _null_.
+
+**Deletar**
+- Utilizamos a função _buscarPorId_ para verificar se o contato existe,
+  e está ativo. Caso exista o contato é removido do Banco de Dados,
+  do contrário retorna _null_.
+
+**Deletar**
+- Utilizamos a função _buscarPorId_ para verificar se o contato existe,
+  e está ativo. 
+- Criamos uma variavel para informar se o contato está atualizado 
+e a definimos com _false_.
+- Caso exista o valor do contato seja diferente de nulo, 
+- diferente de vazio e diferente da requisição,
+definimos a variavél criada como true e atualizamos o
+valor informado do contato no Banco de Dados, do contrário
+retorna _null_.
+
+<br>
+
+**IDE**
 <br>Foi utilizada API intellij idea.
