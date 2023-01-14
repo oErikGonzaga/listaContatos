@@ -1,6 +1,6 @@
-package com.gonzaga.contatos.serviceV2;
+package com.gonzaga.contatos.v2.serviceV2;
 
-import com.gonzaga.contatos.modelV2.ContatosV2;
+import com.gonzaga.contatos.v2.serviceV2.modelV2.ContatosV2;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

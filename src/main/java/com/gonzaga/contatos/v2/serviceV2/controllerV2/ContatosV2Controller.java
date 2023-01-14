@@ -1,8 +1,8 @@
-package com.gonzaga.contatos.controllerV2;
+package com.gonzaga.contatos.v2.serviceV2.controllerV2;
 
-import com.gonzaga.contatos.modelV2.ContatosV2;
+import com.gonzaga.contatos.v2.serviceV2.modelV2.ContatosV2;
 
-import com.gonzaga.contatos.serviceV2.ContatosServiceV2;
+import com.gonzaga.contatos.v2.serviceV2.ContatosServiceV2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
 
 @RestController
 @RequestMapping(value = "contatos/v2")
