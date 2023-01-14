@@ -148,4 +148,8 @@ public class ContatosController {
 
         return ResponseEntity.ok(contato);
     }
+    @PostMapping("importar")
+    public ResponseEntity<?> importar(@RequestBody Contato contato){
+        return null;
+    }
 }
