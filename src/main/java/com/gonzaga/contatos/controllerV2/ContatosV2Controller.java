@@ -113,6 +113,4 @@ public class ContatosV2Controller {
                 ResponseEntity.status(404).body("Contato não encontrado") :
                 ResponseEntity.status(201).body(contatoAlterado);
     }
-
-
 }
