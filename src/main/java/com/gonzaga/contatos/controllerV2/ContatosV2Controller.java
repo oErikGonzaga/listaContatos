@@ -66,8 +66,8 @@ public class ContatosV2Controller {
         //  ResponseEntity passando o nome do StatusCode com Body e Build como resposta
 
         return (Objects.nonNull(contatoEncontrado)) ?
-                ResponseEntity.accepted().body(contatoEncontrado) :
-                ResponseEntity.notFound().build();
+                ResponseEntity.status(201).body(contatoEncontrado) :
+                ResponseEntity.status(404).build();
     }
 
     @PatchMapping("inativar/{id}")
@@ -76,8 +76,8 @@ public class ContatosV2Controller {
         var contatoInativado = contatosServiceV2.inativar(id);
 
         return isNull(contatoInativado) ?
-                ResponseEntity.notFound().build() :
-                ResponseEntity.ok().build();
+                ResponseEntity.status(404).build() :
+                ResponseEntity.status(200).build();
     }
 
     @PatchMapping("ativar{id}")
@@ -86,8 +86,8 @@ public class ContatosV2Controller {
         var contatoAtivado = contatosServiceV2.ativar(id);
 
         return isNull(contatoAtivado) ?
-                ResponseEntity.notFound().build() :
-                ResponseEntity.ok().build();
+                ResponseEntity.status(404).build() :
+                ResponseEntity.status(200).build();
     }
 
     @DeleteMapping("{id}")
