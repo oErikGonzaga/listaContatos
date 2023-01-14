@@ -15,7 +15,7 @@ _HTTP_ utilizando os métodos _GET e POST, PUT E DELETE_
 via _REST API_.
 
 ><p> A aplicação consiste em um sistema de criação de lista de Contatos.
-><br> Aonde os dados de Nome e Documentação do Usuário são:
+>Aonde os dados de Nome e Documentação do Usuário são:
 >Inseridos, tratados e armazenado no Banco de Dados.
 
 >Uma divisão de Classes é feita entre pacotes com suas respectivas funcionalidades.
@@ -196,6 +196,7 @@ de nossos REQUESTS e do Banco de Dados
 > Esta Interface _ContatosRepository_ extende outra chamada _JpaRepository_.
 ><br> _JpaRepository_ fica responsável por fazer CRUDs em nosso Banco de Dados.
 
+---
 
 ### Lógica dos Services
 
