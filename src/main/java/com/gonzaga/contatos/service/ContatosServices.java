@@ -13,4 +13,5 @@ public interface ContatosServices {
     boolean ativar(String id);
     boolean deletar(String id);
     boolean atualizar(String id, String nome, String documento);
+    Contato importar(Contato contato);
 }
