@@ -152,4 +152,15 @@ public class ContatosController {
     public ResponseEntity<?> importar(@RequestBody Contato contato){
         return null;
     }
+
+    @GetMapping(value = "exportar", produces = "application/json")
+    public ResponseEntity<?> exportar(@RequestParam(value = "ativo", required = false) Boolean ativo,
+                                      @RequestHeader(value = "Token") String token) {
+
+        log.info("ContatosController.listar init");
+        if (!TOKEN_ACCESS.equals(token)) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(contatosService.listar(ativo));
+    }
 }
