@@ -21,16 +21,20 @@ public class Contato implements Serializable {
     @Id // Definindo Primary Key (PK)
     private String id;
 
+    @Column(name = "nome", length = 255, nullable = false)
+    private String nome;
+
     // Referênciando nomes das colunas,
     // indicando nome das colunas, tamanho e se not null
     @Column(name = "ativo", nullable = false)
     private boolean ativo;
 
-    @Column(name = "nome", length = 255, nullable = false)
-    private String nome;
-
     @Column(name = "documento", nullable = false)
     private Long documento;
+
+    @OneToOne
+    @JoinColumn(name = "id_endereco", referencedColumnName = "id")
+    private Endereco endereco;
 
     public Contato(){
         ativo = true;
