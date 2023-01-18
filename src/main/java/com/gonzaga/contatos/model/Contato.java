@@ -1,7 +1,8 @@
 package com.gonzaga.contatos.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -9,7 +10,8 @@ import java.io.Serializable;
 // Anotando esta classe como uma entidade com @Entity.
 // Marcando a calsse com nome da tabela com @Table
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "contato")
 public class Contato implements Serializable {
@@ -18,7 +20,7 @@ public class Contato implements Serializable {
     @Id // Definindo Primary Key (PK)
     private String id;
 
-    @Column(name = "nome", length = 255, nullable = false)
+    @Column(name = "nome", nullable = false)
     private String nome;
 
     // Referênciando nomes das colunas,
