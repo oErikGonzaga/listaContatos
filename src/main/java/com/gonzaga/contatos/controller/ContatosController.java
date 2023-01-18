@@ -47,7 +47,7 @@ public class ContatosController {
         var contatoCriado = contatosService.cadastrar(contato);
 
         if (!TOKEN_ACCESS.equals(token)) {
-             return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(401).build();
         }
 
         return Objects.isNull(contatoCriado) ?
@@ -60,7 +60,7 @@ public class ContatosController {
                                                 @RequestHeader(value = "Token") String token){
        log.info("ContatosController.listar init");
        if (!TOKEN_ACCESS.equals(token)) {
-           return ResponseEntity.badRequest().build();
+           return ResponseEntity.status(401).build();
        }
 
        return ResponseEntity.ok(contatosService.listar(ativo));
@@ -73,7 +73,7 @@ public class ContatosController {
         var resp = contatosService.buscarPorId(id);
 
         if (!TOKEN_ACCESS.equals(token)) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(401).build();
         }
 
         // Op. Ternário: se a resposta for nula, retorne um 404 se não retorne a resposta.
@@ -93,7 +93,7 @@ public class ContatosController {
         boolean contatoInativado = contatosService.inativar(id);
 
         if (!TOKEN_ACCESS.equals(token)) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(401).build();
         }
         return contatoInativado ?
                 ResponseEntity.ok().build() :
@@ -110,7 +110,7 @@ public class ContatosController {
         boolean contatoAtivado = contatosService.ativar(id);
 
         if (!TOKEN_ACCESS.equals(token)) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(401).build();
         }
         return contatoAtivado ?
                 ResponseEntity.ok().build() :
@@ -127,7 +127,7 @@ public class ContatosController {
         var contato = contatosService.deletar(id);
 
         if (!TOKEN_ACCESS.equals(token)) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(401).build();
         }
         return ResponseEntity.noContent().build();
     }
@@ -143,10 +143,10 @@ public class ContatosController {
         var contato = contatosService.atualizar(id, nome, documento);
 
         if (!TOKEN_ACCESS.equals(token)) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(401).build();
         }
 
-        return ResponseEntity.ok(contato);
+        return contato ? ResponseEntity.ok(contato) : ResponseEntity.status(304).build();
     }
     @PostMapping("importar")
     public ResponseEntity<?> importar(@RequestBody Contato contato){
@@ -159,7 +159,7 @@ public class ContatosController {
 
         log.info("ContatosController.listar init");
         if (!TOKEN_ACCESS.equals(token)) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(401).build();
         }
         return ResponseEntity.ok(contatosService.listar(ativo));
     }
