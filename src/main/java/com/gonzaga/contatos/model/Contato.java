@@ -31,10 +31,6 @@ public class Contato implements Serializable {
     @Column(name = "documento", nullable = false)
     private Long documento;
 
-    @OneToOne
-    @JoinColumn(name = "id_endereco", referencedColumnName = "id")
-    private Endereco endereco;
-
     public Contato(){
         ativo = true;
     }
