@@ -14,7 +14,7 @@ import static java.util.Objects.isNull;
 
 @RestController
 @RequestMapping(value = "contatos/v2")
-public class ContatosV2Controller {
+public class ContatosV2Controllers {
 
     private final List<ContatosV2> listaContatos = new ArrayList<>();
 
