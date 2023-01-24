@@ -67,17 +67,17 @@ e armazena-los em nossa Classe Modelo: Contato.
 checando contatos ativos e inativos.
 
 ```@GetMapping("{id}")```
-* Consulta um contato por um id especifico que é gerado automaticamente
-no cadastro do contato.
+* Consulta um contact por um id especifico que é gerado automaticamente
+no cadastro do contact.
 
 ```@PatchMapping("inativar/{id}") e @PatchMapping("ativar/{id}")```
-* Inativa e Ativa um contato através de um ID do fornecido do mesmo.
+* Inativa e Ativa um contact através de um ID do fornecido do mesmo.
 
 ```@DeleteMapping("{id}")```
-* Exclui um contato de nosso Banco de Dados através do ID fornecido.
+* Exclui um contact de nosso Banco de Dados através do ID fornecido.
 
 ```@PutMapping("{id}")```
-* Atualiza todos ou parcialmente os dados de contato através de um contato.
+* Atualiza todos ou parcialmente os dados de contact através de um contact.
 
 ---
 
@@ -130,7 +130,7 @@ acesso, os getter e setters.
 ```@Entity``` 
 * Indica que nossa classe é uma entidade do banco de dados.
 
-```@Table(name = "contato")```
+```@Table(name = "contact")```
 * Indica que a classe é uma tabela do nosso banco de dados que representa
 
 ```@Id```
@@ -156,7 +156,7 @@ implementarem terão que seguir estas regras.
 <br>
 
 - ```List<Contato> listar(Boolean ativo);```
-<br>```Contato cadastrar(Contato contato);```
+<br>```Contato cadastrar(Contato contact);```
 <br>```Contato buscarPorId(String id); ```
 <br>```boolean inativar(String id); ```
 <br>```boolean ativar(String id);```
@@ -204,43 +204,43 @@ de nossos REQUESTS e do Banco de Dados
 
 **Cadastrar**
  - É feita uma busca no Banco de Dados e armazenado seu valor em uma variável.
-Seguido de uma checagem verificado se o contato com o documento informado na
+Seguido de uma checagem verificado se o contact com o documento informado na
 requisição já existe. Caso exista é retornado _Null_, caso não exista é gerado
-um id aleatório e a criacão e armazenamento do contato é realizada no Banco de Dados.
+um id aleatório e a criacão e armazenamento do contact é realizada no Banco de Dados.
 
 **Listar**
- - Feita uma verificação se o contato está ou não ativo, 
+ - Feita uma verificação se o contact está ou não ativo, 
 é retornado uma lista com todos os contatos.
  - Todos, Somente Ativos e Somente Inativos.
 
 **Buscar por Id**
  - Caso o Id informado na requisição exista no Banco de Dados,
-é retornado o contato, do contrário retorna _null_.
+é retornado o contact, do contrário retorna _null_.
 
 **Inativar**
-- Utilizamos a função _buscarPorId_ para verificar se o contato existe,
-e está ativo. Caso exista inativa-se o contato, 
+- Utilizamos a função _buscarPorId_ para verificar se o contact existe,
+e está ativo. Caso exista inativa-se o contact, 
 do contrário retorna _null_.
 
 **Ativar**
-- Utilizamos a função _buscarPorId_ para verificar se o contato existe,
-e está inativo. Caso exista ativa-se o contato,
+- Utilizamos a função _buscarPorId_ para verificar se o contact existe,
+e está inativo. Caso exista ativa-se o contact,
 do contrário retorna _null_.
 
 **Deletar**
-- Utilizamos a função _buscarPorId_ para verificar se o contato existe,
-  e está ativo. Caso exista o contato é removido do Banco de Dados,
+- Utilizamos a função _buscarPorId_ para verificar se o contact existe,
+  e está ativo. Caso exista o contact é removido do Banco de Dados,
   do contrário retorna _null_.
 
 **Atualizar**
-- Utilizamos a função _buscarPorId_ para verificar se o contato existe,
+- Utilizamos a função _buscarPorId_ para verificar se o contact existe,
   e está ativo. 
-- Criamos uma variavel para informar se o contato está atualizado 
+- Criamos uma variavel para informar se o contact está atualizado 
 e a definimos com _false_.
-- Caso exista o valor do contato seja diferente de nulo, 
+- Caso exista o valor do contact seja diferente de nulo, 
 - diferente de vazio e diferente da requisição,
 definimos a variavél criada como true e atualizamos o
-valor informado do contato no Banco de Dados, do contrário
+valor informado do contact no Banco de Dados, do contrário
 retorna _null_.
 
 <br>
