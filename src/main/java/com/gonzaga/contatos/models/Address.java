@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class Address implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(length = 8, nullable = false)
