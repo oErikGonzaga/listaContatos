@@ -4,7 +4,7 @@ import com.gonzaga.contatos.models.Contact;
 
 import java.util.List;
 
-public interface ContactsServices {
+public interface ContactsService {
 
     List<Contact> list(Boolean active);
     Contact register(Contact contact);
