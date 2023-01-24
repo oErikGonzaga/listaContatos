@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "contacts")
+@Table(name = "contact")
 public class Contact implements Serializable {
 
     // Anotando os valores da classe com os nomes da tabela.
