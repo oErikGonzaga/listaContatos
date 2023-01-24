@@ -1,30 +1,29 @@
-CREATE DATABASE contatos_db;
+CREATE DATABASE contacts_db;
 
-USE contatos_db;
+USE contacts_db;
 
-DROP TABLE contato ;
-DROP TABLE endereco ;
+DROP TABLE contacts ;
+DROP TABLE addresses ;
 
-CREATE TABLE endereco(
-    id          LONG            NOT NULL    AUTO_INCREMENT  ,
-    cep         VARCHAR(8)      NOT NULL                    ,
-    logradouro  VARCHAR(150)    NOT NULL                    ,
-    complemento VARCHAR(30)                                 ,
-    numero      VARCHAR(150)    NOT NULL                    ,
-    bairro      VARCHAR(30)     NOT NULL                    ,
-    cidade      VARCHAR(30)     NOT NULL                    ,
-    estado      VARCHAR(2)      NOT NULL                    ,
-    PRIMARY KEY	(id)
+CREATE TABLE contacts(
+	id          BIGINT          AUTO_INCREMENT 	PRIMARY KEY ,
+    name        VARCHAR(255)    NOT NULL                    ,
+    active      BOOLEAN         NOT NULL                    ,
+    document    LONG            NOT NULL
 );
 
-CREATE TABLE contato(
-    id          VARCHAR(255)	NOT NULL	PRIMARY KEY		,
-    nome        VARCHAR(255)    NOT NULL                    ,
-    ativo       BOOLEAN         NOT NULL                    ,
-    documento   LONG            NOT NULL                    ,
-    id_endereco INT    			NOT NULL  					,
-    FOREIGN KEY (id_endereco)   REFERENCES  endereco (id)
+CREATE TABLE address(
+	id              BIGINT          AUTO_INCREMENT 	PRIMARY KEY	,
+    cep             VARCHAR(8)      NOT NULL                    ,
+    address         VARCHAR(150)    NOT NULL                    ,
+    number          VARCHAR(150)    NULL                        ,
+    complement      VARCHAR(30)     NULL                        ,
+    district        VARCHAR(30)     NOT NULL                    ,
+    city            VARCHAR(30)     NOT NULL                    ,
+    uf              VARCHAR(2)      NOT NULL                    ,
+    address_id      BIGINT    		NOT NULL  					,
+    FOREIGN KEY	    (address_id)	REFERENCES contact (id)
 );
 
-SELECT * FROM contato;
-SELECT * FROM endereco;
+SELECT * FROM contacts ;
+SELECT * FROM addresses ;
