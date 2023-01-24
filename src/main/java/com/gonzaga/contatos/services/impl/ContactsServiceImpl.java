@@ -1,7 +1,7 @@
 package com.gonzaga.contatos.services.impl;
 import com.gonzaga.contatos.models.Contact;
 import com.gonzaga.contatos.repositories.ContactsRepository;
-import com.gonzaga.contatos.services.ContactsServices;
+import com.gonzaga.contatos.services.ContactsService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Data
 @Service
-public class ContactsServiceImpl implements ContactsServices {
+public class ContactsServiceImpl implements ContactsService {
 
     @Autowired
     private ContactsRepository contactsRepository;
@@ -20,7 +20,7 @@ public class ContactsServiceImpl implements ContactsServices {
     @Override
     public Contact register(Contact contact) {
 
-        var contactFound = contactsRepository.findFirstByDocumento(contact.getDocument());
+        var contactFound = contactsRepository.findFirstByDocument(contact.getDocument());
 
         if (Objects.nonNull(contactFound))
             return null;
@@ -35,7 +35,7 @@ public class ContactsServiceImpl implements ContactsServices {
         if (Objects.isNull(active))
             return contactsRepository.findAll();
 
-        return contactsRepository.findAllByAtivo(active);
+        return contactsRepository.findAllByActive(active);
     }
 
     @Override
