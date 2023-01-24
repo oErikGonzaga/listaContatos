@@ -37,4 +37,9 @@ public class Address implements Serializable {
 
     @Column(length = 2, nullable = false)
     private String uf;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Contact contact;
 }
