@@ -1,10 +1,11 @@
-package com.gonzaga.contatos.model;
+package com.gonzaga.contatos.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 // Mapeamento objetos no Banco de Dados
 // Anotando esta classe como uma entidade com @Entity.
@@ -13,25 +14,28 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@Table(name = "contato")
-public class Contato implements Serializable {
+@Table(name = "contacts")
+public class Contact implements Serializable {
 
     // Anotando os valores da classe com os nomes da tabela.
     @Id // Definindo Primary Key (PK)
     private String id;
 
-    @Column(name = "nome", nullable = false)
-    private String nome;
+    @Column(name = "name", nullable = false)
+    private String name;
 
     // Referênciando nomes das colunas,
     // indicando nome das colunas, tamanho e se not null
-    @Column(name = "ativo", nullable = false)
-    private boolean ativo;
+    @Column(name = "active", nullable = false)
+    private boolean active;
 
-    @Column(name = "documento", nullable = false)
-    private Long documento;
+    @Column(name = "document", nullable = false)
+    private Long document;
 
-    public Contato(){
-        ativo = true;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contact")
+    private List<Address> addresses;
+
+    public Contact(){
+        active = true;
     }
 }
