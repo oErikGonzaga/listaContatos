@@ -1,6 +1,6 @@
 package com.gonzaga.contatos.repositories;
 
-import com.gonzaga.contatos.model.Contato;
+import com.gonzaga.contatos.models.Contact;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,9 +12,9 @@ import java.util.List;
 // Devemos anota-la como um Bean do Spring, para que ela instancie esta classe com @Repository
 
 @Repository
-public interface ContatosRepository extends JpaRepository<Contato, String> {
+public interface ContactsRepository extends JpaRepository<Contact, String> {
 
-    Contato findFirstByDocumento(Long documento);
-    List<Contato> findAllByAtivo(Boolean ativo);
+    Contact findFirstByDocumento(Long document);
+    List<Contact> findAllByAtivo(Boolean active);
 
 }
