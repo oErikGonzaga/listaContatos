@@ -12,6 +12,6 @@ public interface ContactsService {
     boolean inactivate(String id);
     boolean activate(String id);
     boolean delete(String id);
-    boolean update(String id, String name, String document);
+    boolean update(String id, String name, Long document);
     List<Contact> imports(Contact contact);
 }
