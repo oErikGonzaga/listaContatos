@@ -1,6 +1,6 @@
-package com.gonzaga.contatos.repositories;
+package com.gonzaga.contacts.repositories;
 
-import com.gonzaga.contatos.models.Contact;
+import com.gonzaga.contacts.models.Contact;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
