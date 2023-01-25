@@ -1,4 +1,4 @@
-package com.gonzaga.contatos.models;
+package com.gonzaga.contacts.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -17,23 +17,20 @@ import java.util.List;
 @Table(name = "contact")
 public class Contact implements Serializable {
 
-    // Anotando os valores da classe com os nomes da tabela.
-    @Id // Definindo Primary Key (PK)
+    @Id
     private String id;
 
-    @Column(name = "name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    // Referênciando nomes das colunas,
-    // indicando nome das colunas, tamanho e se not null
-    @Column(name = "active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
 
-    @Column(name = "document", nullable = false)
+    @Column(nullable = false)
     private Long document;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "contact")
-    private List<Address> addresses;
+    private List<Address> address;
 
     public Contact(){
         active = true;
