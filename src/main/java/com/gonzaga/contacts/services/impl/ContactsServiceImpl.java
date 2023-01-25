@@ -1,7 +1,7 @@
-package com.gonzaga.contatos.services.impl;
-import com.gonzaga.contatos.models.Contact;
-import com.gonzaga.contatos.repositories.ContactsRepository;
-import com.gonzaga.contatos.services.ContactsService;
+package com.gonzaga.contacts.services.impl;
+import com.gonzaga.contacts.models.Contact;
+import com.gonzaga.contacts.repositories.ContactsRepository;
+import com.gonzaga.contacts.services.ContactsService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,7 +84,7 @@ public class ContactsServiceImpl implements ContactsService {
     }
 
     @Override
-    public boolean update(String id, String name, String document) {
+    public boolean update(String id, String name, Long document) {
 
         var contact = searchById(id);
 
