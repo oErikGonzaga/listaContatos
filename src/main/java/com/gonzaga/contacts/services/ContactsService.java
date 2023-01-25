@@ -1,6 +1,6 @@
-package com.gonzaga.contatos.services;
+package com.gonzaga.contacts.services;
 
-import com.gonzaga.contatos.models.Contact;
+import com.gonzaga.contacts.models.Contact;
 
 import java.util.List;
 
