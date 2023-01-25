@@ -1,8 +1,8 @@
-package com.gonzaga.contatos.v2.serviceV2.controllerV2;
+package com.gonzaga.contacts.v2.serviceV2.controllerV2;
 
-import com.gonzaga.contatos.v2.serviceV2.modelV2.ContatosV2;
+import com.gonzaga.contacts.v2.serviceV2.modelV2.ContatosV2;
 
-import com.gonzaga.contatos.v2.serviceV2.ContatosServiceV2;
+import com.gonzaga.contacts.v2.serviceV2.ContatosServiceV2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
