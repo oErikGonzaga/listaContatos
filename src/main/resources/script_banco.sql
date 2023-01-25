@@ -2,11 +2,11 @@ CREATE DATABASE contacts_db;
 
 USE contacts_db;
 
-DROP TABLE contacts ;
-DROP TABLE addresses ;
+DROP TABLE contact ;
+DROP TABLE address ;
 
-CREATE TABLE contacts(
-	id          BIGINT          AUTO_INCREMENT 	PRIMARY KEY ,
+CREATE TABLE contact(
+	id          BIGINT          PRIMARY KEY                 ,
     name        VARCHAR(255)    NOT NULL                    ,
     active      BOOLEAN         NOT NULL                    ,
     document    LONG            NOT NULL
@@ -25,5 +25,5 @@ CREATE TABLE address(
     FOREIGN KEY	    (address_id)	REFERENCES contact (id)
 );
 
-SELECT * FROM contacts ;
-SELECT * FROM addresses ;
+SELECT * FROM contact ;
+SELECT * FROM address ;
