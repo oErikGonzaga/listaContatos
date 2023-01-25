@@ -1,10 +1,9 @@
-package com.gonzaga.contatos.controller;
+package com.gonzaga.contacts.controllers;
 
-import com.gonzaga.contatos.models.Contact;
-import com.gonzaga.contatos.services.ContactsService;
+import com.gonzaga.contacts.models.Contact;
+import com.gonzaga.contacts.services.ContactsService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,11 +15,11 @@ import static java.util.Objects.isNull;
 // Entrada de informações, EndPoint (aonde recebemos as informações dos usuários)
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("contacts") // Adiciona um path fixo antecedente aos demais paths.
 public class ContactsControllers {
 
-    @Autowired // Injetando a classe ContatosServices, para instanciação da classe.
-    ContactsService contactsService;
+    private final ContactsService contactsService;
     private static final String TOKEN_ACCESS = "BC6X8639be18b115a9";
 
     /* Chave de Acesso, comparada via Header
@@ -42,7 +41,7 @@ public class ContactsControllers {
                                        /* Quando o paramêtro recebe o mesmo nome que o Header
                                         não necessidade de adicionar value */
 
-        log.info("ContatosController.cadastrar init");
+        log.info("ContatosController.register init");
         var contactCreated = contactsService.register(contact);
 
         if (!TOKEN_ACCESS.equals(token)) {
@@ -55,7 +54,7 @@ public class ContactsControllers {
     }
 
     @GetMapping
-    public ResponseEntity<List<Contact>> list(@RequestParam(value = "ativo", required = false) Boolean ativo,
+    public ResponseEntity<List<Contact>> list(@RequestParam(value = "active", required = false) Boolean active,
                                               @RequestHeader(value = "Token") String token){
 
        log.info("ContatosController.listar init");
@@ -63,13 +62,13 @@ public class ContactsControllers {
            return ResponseEntity.status(401).build();
        }
 
-       return ResponseEntity.ok(contactsService.list(ativo));
+       return ResponseEntity.ok(contactsService.list(active));
     }
     @GetMapping(value = "{id}")
-    public  ResponseEntity<?> SearchById(@PathVariable String id,
+    public  ResponseEntity<?> searchById(@PathVariable String id,
                                          @RequestHeader(value = "Token") String token){
 
-        log.info("ContatosController.buscarPorId init");
+        log.info("ContatosController.searchById init");
         var resp = contactsService.searchById(id);
 
         if (!TOKEN_ACCESS.equals(token)) {
@@ -83,44 +82,41 @@ public class ContactsControllers {
                ResponseEntity.ok(resp);
     }
 
-    @PatchMapping(value = "inativar/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PatchMapping(value = "inactivate/{id}")
     public ResponseEntity<?> inactivate(@PathVariable String id,
                                         @RequestHeader(value = "Token") String token) {
 
-        log.info("ContatosController.inativar init");
-        boolean contatoInativado = contactsService.inactivate(id);
+        log.info("ContatosController.inactivate init");
+        boolean contactInactivated = contactsService.inactivate(id);
 
         if (!TOKEN_ACCESS.equals(token)) {
             return ResponseEntity.status(401).build();
         }
-        return contatoInativado ?
+        return contactInactivated ?
                ResponseEntity.ok().build() :
                ResponseEntity.notFound().build();
     }
 
-    @PatchMapping(value = "ativar/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PatchMapping(value = "activate/{id}")
     public ResponseEntity<?> activate(@PathVariable String id,
                                       @RequestHeader(value = "Token") String token) {
 
-        log.info("ContatosController.ativar init");
-        boolean contatoAtivado = contactsService.activate(id);
+        log.info("ContatosController.activate init");
+        boolean contactActivated = contactsService.activate(id);
 
         if (!TOKEN_ACCESS.equals(token)) {
             return ResponseEntity.status(401).build();
         }
-        return contatoAtivado ?
+        return contactActivated ?
                 ResponseEntity.ok().build() :
                 ResponseEntity.notFound().build();
     }
 
     @DeleteMapping(value = "{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Void> delete(@PathVariable(value = "id") String id,
                                        @RequestHeader(value = "Token") String token) {
 
-        log.info("ContatosController.deletar init");
+        log.info("ContatosController.delete init");
         var contato = contactsService.delete(id);
 
         if (!TOKEN_ACCESS.equals(token)) {
@@ -129,28 +125,28 @@ public class ContactsControllers {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(value = "atualizar/{id}")
+    @PutMapping(value = "update/{id}")
     public ResponseEntity<?> update(@PathVariable String id,
                                     @RequestHeader(value = "Token") String token,
-                                    @RequestParam(value = "nome", required = false) String nome,
-                                    @RequestParam(value = "documento", required = false) String documento) {
+                                    @RequestParam(value = "name", required = false) String name,
+                                    @RequestParam(value = "document", required = false) Long document) {
 
-        log.info("ContatosController.atualizar init");
-        var contato = contactsService.update(id, nome, documento);
+        log.info("ContatosController.update init");
+        var contato = contactsService.update(id, name, document);
 
         if (!TOKEN_ACCESS.equals(token)) {
             return ResponseEntity.status(401).build();
         }
 
-        return contato ? ResponseEntity.ok(contato) : ResponseEntity.status(304).build();
+        return contato ? ResponseEntity.ok(true) : ResponseEntity.status(304).build();
     }
-    @PostMapping("importar")
+    @PostMapping("imports")
     public ResponseEntity<?> imports(@RequestBody Contact contact){
         return null;
     }
 
-    @GetMapping(value = "exportar", produces = "application/json")
-    public ResponseEntity<?> exports(@RequestParam(value = "ativo", required = false) Boolean ativo,
+    @GetMapping(value = "exports", produces = "application/json")
+    public ResponseEntity<?> exports(@RequestParam(value = "active", required = false) Boolean active,
                                      @RequestHeader(value = "Token") String token) {
 
         log.info("ContatosController.listar init");
@@ -158,6 +154,6 @@ public class ContactsControllers {
         if (!TOKEN_ACCESS.equals(token)) {
             return ResponseEntity.status(401).build();
         }
-        return ResponseEntity.ok(contactsService.list(ativo));
+        return ResponseEntity.ok(contactsService.list(active));
     }
 }
