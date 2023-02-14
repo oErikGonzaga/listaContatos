@@ -15,14 +15,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/contatos/check",
+							"raw": "http://localhost:8081/contacts/check",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"contatos",
+								"contacts",
 								"check"
 							]
 						}
@@ -42,7 +42,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\": \"Tebastesia Constancia\",\n    \"documento\": \"12345678900\"\n}",
+							"raw": "{\n    \"name\": \"Seu Nome e Sobrenome\",\n    \"document\": 12345678900\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -50,23 +50,23 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/contatos",
+							"raw": "http://localhost:8081/contacts",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"contatos"
+								"contacts"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Listar",
+					"name": "Criar Endereço",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Token",
@@ -74,20 +74,31 @@
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cep\": \"00000000\",\n    \"number\": \"0000\",\n    \"uf\": \"SP\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8081/contatos?ativo=true",
+							"raw": "http://localhost:8081/contacts/:id/address",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"contatos"
+								"contacts",
+								":id",
+								"address"
 							],
-							"query": [
+							"variable": [
 								{
-									"key": "ativo",
-									"value": "true"
+									"key": "id",
+									"value": ""
 								}
 							]
 						}
@@ -106,20 +117,20 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8081/contatos/:id",
+							"raw": "http://localhost:8081/contacts/:id",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"contatos",
+								"contacts",
 								":id"
 							],
 							"variable": [
 								{
 									"key": "id",
-									"value": "b96aa3a9-41ad-4757-8dfc-1408523a0fd6"
+									"value": ""
 								}
 							]
 						}
@@ -127,9 +138,9 @@
 					"response": []
 				},
 				{
-					"name": "Inativar",
+					"name": "Listar Contatos",
 					"request": {
-						"method": "PATCH",
+						"method": "GET",
 						"header": [
 							{
 								"key": "Token",
@@ -138,21 +149,19 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8081/contatos/inativar/:id",
+							"raw": "http://localhost:8081/contacts?active=",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"contatos",
-								"inativar",
-								":id"
+								"contacts"
 							],
-							"variable": [
+							"query": [
 								{
-									"key": "id",
-									"value": "3473153d-ab43-4d2f-a83f-74e4ed969da1"
+									"key": "active",
+									"value": ""
 								}
 							]
 						}
@@ -160,9 +169,9 @@
 					"response": []
 				},
 				{
-					"name": "Ativar",
+					"name": "Listar Endereços",
 					"request": {
-						"method": "PATCH",
+						"method": "GET",
 						"header": [
 							{
 								"key": "Token",
@@ -171,53 +180,21 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8081/contatos/ativar/:id",
+							"raw": "http://localhost:8081/contacts/:id/address",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"contatos",
-								"ativar",
-								":id"
+								"contacts",
+								":id",
+								"address"
 							],
 							"variable": [
 								{
 									"key": "id",
-									"value": "3473153d-ab43-4d2f-a83f-74e4ed969da1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Deletar",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Token",
-								"value": "BC6X8639be18b115a9",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:8081/contatos/:id",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"contatos",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "a77a12d8-65d7-4f79-ac2c-164ee92c8691"
+									"value": ""
 								}
 							]
 						}
@@ -236,32 +213,161 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8081/contatos/atualizar/:id?nome=Tebastilson Junior&documento=12345678910",
+							"raw": "http://localhost:8081/contacts/update/:id?name=Seu Nome e Sobrenome&document=12345678900",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"contatos",
-								"atualizar",
+								"contacts",
+								"update",
 								":id"
 							],
 							"query": [
 								{
-									"key": "nome",
-									"value": "Tebastilson Junior"
+									"key": "name",
+									"value": "Seu Nome e Sobrenome"
 								},
 								{
-									"key": "documento",
-									"value": "12345678910"
+									"key": "document",
+									"value": "12345678900"
 								}
 							],
 							"variable": [
 								{
 									"key": "id",
-									"value": "3473153d-ab43-4d2f-a83f-74e4ed969da1"
+									"value": ""
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inativar",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Token",
+								"value": "BC6X8639be18b115a9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/contacts/inactivate/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contacts",
+								"inactivate",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ativar",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Token",
+								"value": "BC6X8639be18b115a9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/contacts/active/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contacts",
+								"active",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Token",
+								"value": "BC6X8639be18b115a9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/contacts/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contacts",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exportar",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "BC6X8639be18b115a9",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/contacts/exports",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"contacts",
+								"exports"
 							]
 						}
 					},
@@ -306,7 +412,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\": \"Nome Sobrenome\",\n    \"documento\": \"10000000000\"\n}",
+							"raw": "[\n    {\n        \"nome\":\"Vermelho Treze\",\n        \"documento\": 45481959120\n    },\n    {\n        \"nome\": \"Vicente Valentão\",\n        \"documento\": 13101950184\n    }\n\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -527,7 +633,7 @@
 							],
 							"query": [
 								{
-									"key": "Nome e Sobrenome",
+									"key": "nome",
 									"value": "Teste"
 								},
 								{
