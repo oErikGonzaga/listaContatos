@@ -98,11 +98,11 @@ public class ContactsServiceImpl implements ContactsService {
         }
 
         if (Objects.nonNull(document) && !(document.equals(contact.getDocument()))) {
-            contact.setDocument(Long.valueOf(document));
+            contact.setDocument(document);
             isUpdated = true;
         }
 
-        if (isUpdated = true) contactsRepository.save(contact);
+        if (isUpdated == true) contactsRepository.save(contact);
 
         return isUpdated;
     }
