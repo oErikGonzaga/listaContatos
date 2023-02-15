@@ -30,18 +30,12 @@ CREATE TABLE address(
     FOREIGN KEY	    (address_id)	REFERENCES contact (id)
 );
 
-
-
-
 INSERT INTO contato (id, nome, documento, ativo, id_endereco) VALUES(1, 'Erik Gonzaga de Souza', '12345678900', true, 1);
 INSERT INTO address (cep, address, number, complement, district, city, uf, address_id)
 VALUES('02465300', 'Avenida Imirim', '2383', 'Loja', 'Imirim', 'São Paulo', 'SP', 'fac22244-051b-45de-bafa-e4f58659bd20');
 
-
-
 INSERT INTO endereco (cep, logradouro, complemento, numero, bairro, cidade, estado)
 VALUES('02542110', 'Rua Abura', 'A', '641', 'Imirim', 'São Paulo', 'SP');
-
 
 SELECT 	c.nome			,
 		c.documento 	,
