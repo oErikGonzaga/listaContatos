@@ -129,7 +129,7 @@ public class ContactsControllers {
     public ResponseEntity<?> update(@PathVariable String id,
                                     @RequestHeader(value = "Token") String token,
                                     @RequestParam(value = "name", required = false) String name,
-                                    @RequestParam(value = "document", required = false) Long document) {
+                                    @RequestParam(value = "document", required = false) String document) {
 
         log.info("ContatosController.update init");
         var contato = contactsService.update(id, name, document);

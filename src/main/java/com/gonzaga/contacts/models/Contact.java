@@ -27,7 +27,7 @@ public class Contact implements Serializable {
     private boolean active;
 
     @Column(nullable = false)
-    private Long document;
+    private String document;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "contact")
     private List<Address> address;

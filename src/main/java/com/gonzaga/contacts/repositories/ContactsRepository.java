@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface ContactsRepository extends JpaRepository<Contact, String> {
 
-    Contact findFirstByDocument(Long document);
+    Contact findFirstByDocument(String document);
     List<Contact> findAllByActive(Boolean active);
 
 }

@@ -84,7 +84,7 @@ public class ContactsServiceImpl implements ContactsService {
     }
 
     @Override
-    public boolean update(String id, String name, Long document) {
+    public boolean update(String id, String name, String document) {
 
         var contact = searchById(id);
 
@@ -102,7 +102,7 @@ public class ContactsServiceImpl implements ContactsService {
             isUpdated = true;
         }
 
-        if (isUpdated == true) contactsRepository.save(contact);
+        if (isUpdated) contactsRepository.save(contact);
 
         return isUpdated;
     }
